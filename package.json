@@ -4,6 +4,9 @@
   "description": "",
   "author": "Igor Santos da Costa <igorsantoscosta@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "14.16.0"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
