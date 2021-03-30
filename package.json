@@ -2,8 +2,7 @@
   "name": "playshape-backend",
   "version": "0.0.1",
   "description": "",
-  "author": "",
-  "private": true,
+  "author": "Igor Santos da Costa <igorsantoscosta@gmail.com>",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
