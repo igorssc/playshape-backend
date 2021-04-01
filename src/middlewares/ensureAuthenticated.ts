@@ -1,4 +1,10 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { verify } from 'jsonwebtoken';
 
@@ -19,12 +25,12 @@ export class EnsureAuthenticated implements CanActivate {
       const user = await this.usersRepository.findById(user_id);
 
       if (!user) {
-        throw new Error('User does not exists!');
+        throw new HttpException('User does not exists!', HttpStatus.NOT_FOUND);
       }
 
       return true;
     } catch {
-      throw new Error('Invalid token!');
+      throw new HttpException('Invalid token!', HttpStatus.FORBIDDEN);
     }
   }
 }
