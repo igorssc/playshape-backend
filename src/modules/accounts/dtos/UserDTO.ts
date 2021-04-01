@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class UserModel {
+export class UserDTO {
   @Field(() => ID)
   _id: string;
 
@@ -12,11 +12,8 @@ export class UserModel {
   email: string;
 
   @Field()
-  password: string;
-
-  @Field({ defaultValue: new Date() })
   created_at: Date;
 
-  @Field({ defaultValue: new Date() })
+  @Field()
   updated_at: Date;
 }

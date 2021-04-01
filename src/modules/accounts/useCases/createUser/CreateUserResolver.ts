@@ -1,24 +1,18 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateUserInput } from '../../inputs/CreateUser.input';
-import { UserModel } from '../../models/user.model';
-import { User } from '../../schema/user.schema';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 
+import { ListUserDTO } from '../../dtos/ListUserDTO';
+import { CreateUserInput } from '../../inputs/CreateUser.input';
 import { CreateUsersUseCase } from './CreateUserUseCase';
 
-@Resolver(() => User)
+@Resolver()
 class CreateUserResolver {
   constructor(private createUsersUseCase: CreateUsersUseCase) {}
 
-  @Mutation(() => UserModel)
+  @Mutation(() => ListUserDTO)
   async createUser(@Args('user') user: CreateUserInput) {
     const createdUser = await this.createUsersUseCase.execute(user);
 
     return createdUser;
-  }
-
-  @Query(() => String)
-  async hello() {
-    return 'hello';
   }
 }
 
