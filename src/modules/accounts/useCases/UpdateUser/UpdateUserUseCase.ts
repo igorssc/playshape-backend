@@ -5,8 +5,8 @@ import crypto from 'crypto';
 import { ListUserDTO } from '../../dtos/ListUserDTO';
 import { UpdateUserInput } from '../../inputs/UpdateUserInput';
 import { UsersRepository } from '../../repositories/implementations/UsersRepository';
-import { deleteFile } from '../../../../../utils/file';
-import uploadConfig from '../../../../../config/upload';
+import { deleteFile } from '../../../../utils/file';
+import uploadConfig from '../../../../config/upload';
 
 @Injectable()
 class UpdateUserUseCase {

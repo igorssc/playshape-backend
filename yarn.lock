@@ -2540,6 +2540,11 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+awaitify-stream@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/awaitify-stream/-/awaitify-stream-1.0.2.tgz#349c905620f9341be948a8033ee7a29034d3a46a"
+  integrity sha512-JE6mrRIPxhBQWt9Mu4u2XJF9V9xp4p5+Uxif/Ol/s2TFC/9+offUE50j/KQdaVWwMyGlKrlsE7Ncq/yhc6AJ+w==
+
 aws-sdk@^2.878.0:
   version "2.878.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.878.0.tgz#0c18f464766555c86bdd2e70a3db9f473702c4b2"

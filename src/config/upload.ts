@@ -3,6 +3,8 @@ import crypto from 'crypto';
 import { createWriteStream } from 'fs';
 import { FileUpload } from 'graphql-upload';
 import { resolve } from 'path';
+import { uploadFile } from '../storage/AWS';
+import fs from 'fs';
 
 const upload = async (
   folder: string,
@@ -28,6 +30,15 @@ const upload = async (
   fileName.replace(/=/g, '').replace(/\//g, '-').replace(/\+/, '_');
 
   const path = resolve(__dirname, '..', '..', 'uploads', folder, fileName);
+
+  // uploadFile(file);
+  if (!fs.existsSync(resolve(__dirname, '..', '..', 'uploads', folder))) {
+    console.log(1);
+    fs.mkdirSync(resolve(__dirname, '..', '..', 'uploads'));
+    fs.mkdirSync(resolve(__dirname, '..', '..', 'uploads', folder));
+  }
+
+  console.log('aqui', resolve(__dirname, '..', '..', 'uploads', folder));
 
   await new Promise(async (resolve, reject) =>
     file
