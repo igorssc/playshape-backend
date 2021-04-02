@@ -6,7 +6,6 @@ import { ListUserDTO } from '../../dtos/ListUserDTO';
 import { EnsureAuthenticated } from '../../../../middlewares/ensureAuthenticated';
 import { UpdateUserInput } from '../../inputs/UpdateUserInput';
 import { UpdateUserUseCase } from './UpdateUserUseCase';
-
 @Resolver()
 class UpdateUserResolver {
   constructor(private updateUserUseCase: UpdateUserUseCase) {}

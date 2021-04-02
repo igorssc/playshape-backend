@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { UsersModule } from './modules/accounts/user.module';
 import 'dotenv/config';
+import { GraphQLError, GraphQLFormattedError } from 'graphql';
 
 @Module({
   imports: [
@@ -16,16 +16,24 @@ import 'dotenv/config';
       },
     ),
     GraphQLModule.forRoot({
+      path: '/graphql',
       autoSchemaFile: true,
       introspection: true,
       playground: true,
       formatError: (error: GraphQLError) => {
         console.log(error);
         const graphQLFormattedError: GraphQLFormattedError = {
-          message: error.extensions.exception.response.message || error.message,
+          message:
+            error.extensions.exception.response.message ||
+            error.message ||
+            'Internal server error',
           extensions: { status: error.extensions.exception.status || 500 },
         };
         return graphQLFormattedError;
+      },
+      uploads: {
+        maxFileSize: 20000000, // 20 MB
+        maxFiles: 5,
       },
     }),
     UsersModule,

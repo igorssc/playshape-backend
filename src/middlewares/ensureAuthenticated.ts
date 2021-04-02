@@ -30,7 +30,7 @@ export class EnsureAuthenticated implements CanActivate {
 
       return true;
     } catch {
-      throw new HttpException('Invalid token!', HttpStatus.FORBIDDEN);
+      throw new HttpException('Invalid token!', HttpStatus.UNAUTHORIZED);
     }
   }
 }

@@ -1,4 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { GraphQLUpload } from 'apollo-server-express';
+import { FileUpload } from 'graphql-upload';
 
 @InputType()
 class UpdateUserInput {
@@ -10,6 +12,9 @@ class UpdateUserInput {
 
   @Field({ nullable: true })
   password: string;
+
+  @Field(() => GraphQLUpload, { nullable: true })
+  profile_picture: FileUpload;
 
   @Field({ defaultValue: new Date() })
   updated_at: Date;

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -13,6 +13,9 @@ export class User {
 
   @Prop()
   password: string;
+
+  @Prop()
+  profile_picture: string;
 
   @Prop({ default: new Date() })
   created_at: Date;
