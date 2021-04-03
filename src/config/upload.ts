@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs-extra';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { FileUpload } from 'graphql-upload';
 import { resolve } from 'path';
@@ -26,11 +26,7 @@ const uploadFile = async (
   let buffer: Buffer;
   let url: string;
 
-  fs.access(resolve(__dirname, '..', '..', 'temp'), (err) => {
-    if (err) {
-      fs.mkdirSync(resolve(__dirname, '..', '..', 'temp'));
-    }
-  });
+  fs.ensureDirSync(resolve(__dirname, '..', '..', 'temp'));
 
   const pathTemp = resolve(__dirname, '..', '..', 'temp', filename);
 

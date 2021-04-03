@@ -11,8 +11,6 @@ let deleteToS3 = async (fileName: string) => {
 const deleteFile = async (fileName: string) => {
   try {
     let res = await deleteToS3(fileName);
-    console.log(res);
-    console.log(fileName);
   } catch (err) {
     throw err;
   }
