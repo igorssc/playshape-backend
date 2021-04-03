@@ -4,6 +4,14 @@ import { Document } from 'mongoose';
 export type UserDocument = User & Document;
 
 @Schema()
+class ProfilePicture {
+  @Prop()
+  url: string;
+  @Prop()
+  filename: string;
+}
+
+@Schema()
 export class User {
   @Prop()
   name: string;
@@ -15,7 +23,7 @@ export class User {
   password: string;
 
   @Prop()
-  profile_picture: string;
+  profile_picture: ProfilePicture;
 
   @Prop({ default: new Date() })
   created_at: Date;

@@ -1,0 +1,23 @@
+import s3 from '../config/AWS';
+
+let deleteToS3 = async (fileName: string) => {
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: fileName,
+  };
+  return s3.deleteObject(params).promise();
+};
+
+const deleteFile = async (fileName: string) => {
+  try {
+    let res = await deleteToS3(fileName);
+    console.log(res);
+    console.log(fileName);
+  } catch (err) {
+    throw err;
+  }
+
+  return true;
+};
+
+export { deleteFile };

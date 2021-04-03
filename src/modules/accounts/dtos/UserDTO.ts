@@ -1,6 +1,13 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
+class ProfilePicture {
+  @Field()
+  url: string;
+  @Field()
+  filename: string;
+}
+@ObjectType()
 export class UserDTO {
   @Field(() => ID)
   _id: string;
@@ -10,6 +17,9 @@ export class UserDTO {
 
   @Field()
   email: string;
+
+  @Field()
+  profile_picture: ProfilePicture;
 
   @Field()
   created_at: Date;

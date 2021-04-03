@@ -1,58 +1,88 @@
+import fs from 'fs';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import crypto from 'crypto';
-import { createWriteStream } from 'fs';
 import { FileUpload } from 'graphql-upload';
 import { resolve } from 'path';
-import { uploadFile } from '../storage/AWS';
-import fs from 'fs';
+import { createReader } from 'awaitify-stream';
 
-const upload = async (
-  folder: string,
+import { handleFileData } from '../storage/upload';
+import validate from '../utils/validateFile';
+import compressPicture from '../utils/compressPicture';
+import generateName from '../utils/generateName';
+
+interface IUploadFile {
+  url: string;
+  filename: string;
+}
+
+const uploadFile = async (
   file: FileUpload,
   type: string,
-): Promise<{ fileName: string; path: string }> => {
-  switch (type) {
-    case 'image':
-      if (
-        !['image/jpeg', 'image/pjpeg', 'image/png', 'image/webp'].find(
-          (element) => element === file.mimetype,
-        )
-      ) {
-        throw new HttpException('Format file invalid!', HttpStatus.BAD_REQUEST);
-      }
-      break;
+  dir?: string,
+): Promise<IUploadFile> => {
+  validate(type, file.mimetype);
+
+  let filename = generateName(file.filename);
+  let mimetype: string;
+  let buffer: Buffer;
+  let url: string;
+
+  const pathTemp = resolve(__dirname, '..', '..', 'temp', filename);
+
+  if (type === 'image') {
+    const upload = new Promise(async (resolve) => {
+      file
+        .createReadStream()
+        .pipe(fs.createWriteStream(pathTemp))
+        .on('finish', () => resolve(true))
+        .on('error', () => {
+          throw new HttpException(
+            'Error uploading file',
+            HttpStatus.INTERNAL_SERVER_ERROR,
+          );
+        });
+    });
+
+    await upload.then(async () => {
+      const pathCompress = await compressPicture(pathTemp, filename, 500);
+
+      fs.access(pathTemp, (err) => {
+        if (!err) {
+          fs.unlink(pathTemp, (err_1) => {
+            if (err_1) console.log(err_1);
+          });
+        }
+      });
+
+      buffer = pathCompress.buffer;
+      filename = pathCompress.filename;
+      mimetype = pathCompress.mimetype;
+    });
+  } else {
+    let bufferArray: Array<any> = [];
+    let reader = createReader(file.createReadStream());
+    let chunk: any;
+
+    while (null !== (chunk = await reader.readAsync())) {
+      bufferArray.push(chunk);
+    }
+
+    buffer = Buffer.concat(bufferArray);
   }
 
-  const fileHash = crypto.randomBytes(16).toString('hex');
+  if (dir) filename = dir + '/' + filename;
 
-  const fileName = `${fileHash}-${file.filename}`;
+  try {
+    const upload = await handleFileData(buffer, filename, mimetype);
 
-  fileName.replace(/=/g, '').replace(/\//g, '-').replace(/\+/, '_');
-
-  const path = resolve(__dirname, '..', '..', 'uploads', folder, fileName);
-
-  // uploadFile(file);
-  if (!fs.existsSync(resolve(__dirname, '..', '..', 'uploads', folder))) {
-    console.log(1);
-    fs.mkdirSync(resolve(__dirname, '..', '..', 'uploads'));
-    fs.mkdirSync(resolve(__dirname, '..', '..', 'uploads', folder));
+    url = upload.Location;
+  } catch (error) {
+    throw new HttpException(
+      'Error uploading file',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
   }
 
-  console.log('aqui', resolve(__dirname, '..', '..', 'uploads', folder));
-
-  await new Promise(async (resolve, reject) =>
-    file
-      .createReadStream()
-      .pipe(createWriteStream(path))
-      .on('finish', (_data: any) => {
-        resolve(true);
-      })
-      .on('error', (_error) => {
-        reject(false);
-      }),
-  );
-
-  return { fileName, path };
+  return { url, filename };
 };
 
-export default upload;
+export { uploadFile };

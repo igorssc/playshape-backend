@@ -1,12 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import fs, { createWriteStream } from 'fs';
-import crypto from 'crypto';
 
 import { ListUserDTO } from '../../dtos/ListUserDTO';
 import { UpdateUserInput } from '../../inputs/UpdateUserInput';
 import { UsersRepository } from '../../repositories/implementations/UsersRepository';
-import { deleteFile } from '../../../../utils/file';
-import uploadConfig from '../../../../config/upload';
+import { deleteFile } from '../../../../storage/delete';
+import { uploadFile } from '../../../../config/upload';
 
 @Injectable()
 class UpdateUserUseCase {
@@ -31,15 +29,13 @@ class UpdateUserUseCase {
 
       const picture = await user.profile_picture;
 
-      const dir = 'profile_pictures\\';
-
       if (currentUser.profile_picture) {
-        await deleteFile(dir + currentUser.profile_picture);
+        await deleteFile(currentUser.profile_picture.filename);
       }
 
-      const path = await uploadConfig(dir, picture, 'image');
+      const path = await uploadFile(picture, 'image', 'profile_pictures');
 
-      (user as any).profile_picture = path.fileName;
+      (user as any).profile_picture = path;
     }
 
     const updatedUser = this.usersRepository.update(userId, user);
