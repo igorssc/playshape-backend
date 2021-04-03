@@ -8,6 +8,7 @@ import { handleFileData } from '../storage/upload';
 import validate from '../utils/validateFile';
 import compressPicture from '../utils/compressPicture';
 import generateName from '../utils/generateName';
+import mkdirp from 'mkdirp';
 
 interface IUploadFile {
   url: string;
@@ -26,11 +27,7 @@ const uploadFile = async (
   let buffer: Buffer;
   let url: string;
 
-  try {
-    await fs.promises.mkdir(resolve(__dirname, '..', '..', 'temp'));
-  } catch (error) {
-    console.log(error);
-  }
+  await mkdirp(resolve(__dirname, '..', '..', 'temp'));
 
   const pathTemp = resolve(__dirname, '..', '..', 'temp', filename);
 
