@@ -26,11 +26,7 @@ const uploadFile = async (
   let buffer: Buffer;
   let url: string;
 
-  try {
-    fs.ensureDirSync(resolve(__dirname, '..', '..', 'temp'));
-  } catch (error) {
-    console.log(error);
-  }
+  fs.ensureDirSync(resolve(__dirname, '..', '..', 'temp'));
 
   const pathTemp = resolve(__dirname, '..', '..', 'temp', filename);
 
