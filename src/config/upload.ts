@@ -48,12 +48,8 @@ const uploadFile = async (
     await upload.then(async () => {
       const pathCompress = await compressPicture(pathTemp, filename, 500);
 
-      fs.access(pathTemp, (err) => {
-        if (!err) {
-          fs.unlink(pathTemp, (err_1) => {
-            if (err_1) console.log(err_1);
-          });
-        }
+      fs.unlink(pathTemp, (err) => {
+        if (err) console.log(err);
       });
 
       buffer = pathCompress.buffer;
