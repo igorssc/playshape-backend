@@ -26,6 +26,12 @@ const uploadFile = async (
   let buffer: Buffer;
   let url: string;
 
+  fs.access(resolve(__dirname, '..', '..', 'temp'), (err) => {
+    if (err) {
+      fs.mkdirSync(resolve(__dirname, '..', '..', 'temp'));
+    }
+  });
+
   const pathTemp = resolve(__dirname, '..', '..', 'temp', filename);
 
   if (type === 'image') {

@@ -29,11 +29,11 @@ class UpdateUserUseCase {
 
       const picture = await user.profile_picture;
 
+      const path = await uploadFile(picture, 'image', 'profile_pictures');
+
       if (currentUser.profile_picture) {
         await deleteFile(currentUser.profile_picture.filename);
       }
-
-      const path = await uploadFile(picture, 'image', 'profile_pictures');
 
       (user as any).profile_picture = path;
     }
