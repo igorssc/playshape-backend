@@ -2,9 +2,9 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 
-import { IUsersRepository } from '../IUsersRepository';
-import { User, UserDocument } from '../../schema/user.schema';
-import { CreateUserInput } from '../../inputs/CreateUser.input';
+import { IUsersRepository } from '../IUsers.repository';
+import { User, UserDocument } from '../../entities/user.schema';
+import { CreateUserInput } from '../../inputs/create-user.input';
 
 @Injectable()
 class UsersRepository implements IUsersRepository {

@@ -1,5 +1,5 @@
-import { CreateUserInput } from '../inputs/CreateUser.input';
-import { User } from '../schema/user.schema';
+import { CreateUserInput } from '../inputs/create-user.input';
+import { User } from '../entities/user.schema';
 
 interface IUsersRepository {
   create(user: CreateUserInput): Promise<User>;

@@ -5,6 +5,9 @@ import { FileUpload } from 'graphql-upload';
 @InputType()
 class UpdateUserInput {
   @Field({ nullable: true })
+  _id: string;
+
+  @Field({ nullable: true })
   name: string;
 
   @Field({ nullable: true })

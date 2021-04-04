@@ -7,6 +7,7 @@ class ProfilePicture {
   @Field()
   filename: string;
 }
+
 @ObjectType()
 export class UserDTO {
   @Field(() => ID)
@@ -20,6 +21,12 @@ export class UserDTO {
 
   @Field()
   profile_picture: ProfilePicture;
+
+  @Field()
+  isAdmin: boolean;
+
+  @Field(() => [String])
+  permissions: String[];
 
   @Field()
   created_at: Date;

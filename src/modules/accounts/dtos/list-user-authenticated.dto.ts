@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
-import { UserDTO } from './UserDTO';
+import { UserDTO } from './user.dto';
 
 @ObjectType()
 class ListUserAuthenticatedDTO {

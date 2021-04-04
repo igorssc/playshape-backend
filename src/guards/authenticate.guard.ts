@@ -8,10 +8,10 @@ import {
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { verify } from 'jsonwebtoken';
 
-import { UsersRepository } from '../modules/accounts/repositories/implementations/UsersRepository';
+import { UsersRepository } from '../modules/accounts/repositories/implementations/users.repository';
 
 @Injectable()
-export class EnsureAuthenticated implements CanActivate {
+export class AuthenticateGuard implements CanActivate {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

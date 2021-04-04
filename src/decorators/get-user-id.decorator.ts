@@ -4,6 +4,7 @@ import { verify } from 'jsonwebtoken';
 
 export const GetUserIdDecorator = createParamDecorator(
   (_data, context: ExecutionContext): string => {
+    console.log('data', _data);
     const ctx = GqlExecutionContext.create(context);
     const { token } = ctx.getArgs();
     const { sub: userId } = verify(token, process.env.KEY_AUTHENTICATE) as {

@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
 
-import { ListUserDTO } from '../../dtos/ListUserDTO';
-import { CreateUserInput } from '../../inputs/CreateUser.input';
-import { UsersRepository } from '../../repositories/implementations/UsersRepository';
+import { ListUserDTO } from '../../dtos/list-user.dto';
+import { CreateUserInput } from '../../inputs/create-user.input';
+import { UsersRepository } from '../../repositories/implementations/users.repository';
 
 @Injectable()
-class CreateUsersUseCase {
+class CreateUsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute({
@@ -31,4 +31,4 @@ class CreateUsersUseCase {
   }
 }
 
-export { CreateUsersUseCase };
+export { CreateUsersService };

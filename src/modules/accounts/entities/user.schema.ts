@@ -1,9 +1,11 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema as SchemaType, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema } from 'mongoose';
+
+import { Actions } from '../../../enuns/actions.enum';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@SchemaType()
 class ProfilePicture {
   @Prop()
   url: string;
@@ -11,8 +13,10 @@ class ProfilePicture {
   filename: string;
 }
 
-@Schema()
+@SchemaType()
 export class User {
+  _id: Schema.Types.ObjectId;
+
   @Prop()
   name: string;
 
@@ -30,6 +34,12 @@ export class User {
 
   @Prop({ default: new Date() })
   updated_at: Date;
+
+  @Prop({ default: false })
+  isAdmin: boolean;
+
+  @Prop({ default: [] })
+  permissions: Actions[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

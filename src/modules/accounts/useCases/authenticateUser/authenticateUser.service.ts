@@ -2,13 +2,13 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 
-import { ListUserAuthenticatedDTO } from '../../dtos/ListUserAuthenticatedDTO';
-import { ListUserDTO } from '../../dtos/ListUserDTO';
-import { LoginUserInput } from '../../inputs/LoginUser.input';
-import { UsersRepository } from '../../repositories/implementations/UsersRepository';
+import { ListUserAuthenticatedDTO } from '../../dtos/list-user-authenticated.dto';
+import { ListUserDTO } from '../../dtos/list-user.dto';
+import { LoginUserInput } from '../../inputs/login-user.input';
+import { UsersRepository } from '../../repositories/implementations/users.repository';
 
 @Injectable()
-class AuthenticateUserUseCase {
+class AuthenticateUserService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute({
@@ -41,4 +41,4 @@ class AuthenticateUserUseCase {
   }
 }
 
-export { AuthenticateUserUseCase };
+export { AuthenticateUserService };
