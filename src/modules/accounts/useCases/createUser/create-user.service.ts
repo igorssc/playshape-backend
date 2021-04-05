@@ -27,7 +27,7 @@ class CreateUsersService {
       email,
       password: passwordHash,
     });
-    return (createdUser as unknown) as ListUserDTO;
+    return createdUser as ListUserDTO;
   }
 }
 

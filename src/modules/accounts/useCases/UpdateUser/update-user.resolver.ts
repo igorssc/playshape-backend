@@ -50,8 +50,6 @@ class UpdateUserResolver {
       }
 
       userId = user._id;
-
-      delete user._id;
     }
 
     return await this.updateUserService.execute(userId, user);

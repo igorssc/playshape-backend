@@ -9,8 +9,6 @@ export class ListUsersDTO {
   @Field()
   totalDocs: number;
   @Field()
-  offset: number;
-  @Field()
   limit: number;
   @Field()
   totalPages: number;

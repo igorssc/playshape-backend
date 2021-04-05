@@ -34,10 +34,10 @@ class AuthenticateUserService {
     }
 
     const token = sign({}, process.env.KEY_AUTHENTICATE, {
-      subject: String(((user as unknown) as ListUserDTO)._id),
+      subject: String((user as ListUserDTO)._id),
       expiresIn: '1d',
     });
-    return ({ user, token } as unknown) as ListUserAuthenticatedDTO;
+    return { user, token } as ListUserAuthenticatedDTO;
   }
 }
 

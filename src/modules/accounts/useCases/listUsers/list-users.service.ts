@@ -11,7 +11,7 @@ class ListUsersService {
   async execute({ page, limit }: ListUsersInput): Promise<ListUsersDTO> {
     const users = await this.usersRepository.listAll(page, limit);
 
-    return (users as unknown) as ListUsersDTO;
+    return users as ListUsersDTO;
   }
 }
 

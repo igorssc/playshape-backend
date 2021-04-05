@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { ObjectId } from 'mongoose';
 
 @ObjectType()
 class ProfilePicture {
@@ -11,7 +12,7 @@ class ProfilePicture {
 @ObjectType()
 export class UserDTO {
   @Field(() => ID)
-  _id: string;
+  _id: ObjectId;
 
   @Field()
   name: string;
