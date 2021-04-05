@@ -20,16 +20,16 @@ import { GraphQLError, GraphQLFormattedError } from 'graphql';
       autoSchemaFile: true,
       introspection: true,
       playground: true,
-      formatError: (error: GraphQLError) => {
-        const graphQLFormattedError: GraphQLFormattedError = {
-          message:
-            error.extensions.exception.response.message ||
-            error.message ||
-            'Internal server error',
-          extensions: { status: error.extensions.exception.status || 500 },
-        };
-        return graphQLFormattedError;
-      },
+      // formatError: (error: GraphQLError) => {
+      //   const graphQLFormattedError: GraphQLFormattedError = {
+      //     message:
+      //       error.extensions.exception.response.message ||
+      //       error.message ||
+      //       'Internal server error',
+      //     extensions: { status: error.extensions.exception.status || 500 },
+      //   };
+      //   return graphQLFormattedError;
+      // },
       uploads: {
         maxFileSize: 20000000, // 20 MB
         maxFiles: 5,

@@ -3,6 +3,21 @@ import { GraphQLUpload } from 'apollo-server-express';
 import { FileUpload } from 'graphql-upload';
 
 @InputType()
+class UpdateUserInputTypeAddress {
+  @Field({ nullable: true })
+  street: string;
+  @Field({ nullable: true })
+  number: number;
+  @Field({ nullable: true })
+  neighborhood: string;
+  @Field({ nullable: true })
+  city: string;
+  @Field({ nullable: true })
+  state: string;
+  @Field({ nullable: true })
+  zipCode: string;
+}
+@InputType()
 class UpdateUserInputTypeUser {
   @Field({ nullable: true })
   _id: string;
@@ -14,10 +29,19 @@ class UpdateUserInputTypeUser {
   email: string;
 
   @Field({ nullable: true })
-  password: string;
+  phone: string;
+
+  @Field({ nullable: true })
+  cpf: string;
+
+  @Field(() => [UpdateUserInputTypeAddress], { nullable: true })
+  address: UpdateUserInputTypeAddress[];
 
   @Field(() => GraphQLUpload, { nullable: true })
   profile_picture: FileUpload;
+
+  @Field({ nullable: true })
+  password: string;
 
   @Field({ defaultValue: new Date() })
   updated_at: Date;

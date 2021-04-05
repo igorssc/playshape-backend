@@ -15,6 +15,22 @@ class ProfilePicture {
 }
 
 @SchemaType()
+class Address {
+  @Prop()
+  street: string;
+  @Prop()
+  number: number;
+  @Prop()
+  neighborhood: string;
+  @Prop()
+  city: string;
+  @Prop()
+  state: string;
+  @Prop()
+  zipCode: string;
+}
+
+@SchemaType()
 export class User {
   _id: Schema.Types.ObjectId;
 
@@ -25,19 +41,28 @@ export class User {
   email: string;
 
   @Prop()
-  password: string;
+  cpf: string;
+
+  @Prop()
+  phone: string;
+
+  @Prop()
+  address: Address[];
 
   @Prop()
   profile_picture: ProfilePicture;
 
-  @Prop({ default: new Date() })
-  created_at: Date;
+  @Prop()
+  password: string;
+
+  @Prop({ default: false })
+  isAdmin: boolean;
 
   @Prop({ default: new Date() })
   updated_at: Date;
 
-  @Prop({ default: false })
-  isAdmin: boolean;
+  @Prop({ default: new Date() })
+  created_at: Date;
 
   @Prop({ default: [] })
   permissions: Actions[];

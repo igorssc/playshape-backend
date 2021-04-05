@@ -10,6 +10,22 @@ class ProfilePicture {
 }
 
 @ObjectType()
+class Address {
+  @Field({ nullable: true })
+  street: string;
+  @Field({ nullable: true })
+  number: number;
+  @Field({ nullable: true })
+  neighborhood: string;
+  @Field({ nullable: true })
+  city: string;
+  @Field({ nullable: true })
+  state: string;
+  @Field({ nullable: true })
+  zipCode: string;
+}
+
+@ObjectType()
 export class UserDTO {
   @Field(() => ID)
   _id: ObjectId;
@@ -20,7 +36,16 @@ export class UserDTO {
   @Field()
   email: string;
 
-  @Field()
+  @Field({ nullable: true })
+  phone: string;
+
+  @Field({ nullable: true })
+  cpf: string;
+
+  @Field(() => [Address], { nullable: true })
+  address: Address[];
+
+  @Field({ nullable: true })
   profile_picture: ProfilePicture;
 
   @Field()
