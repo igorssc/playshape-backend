@@ -3,7 +3,7 @@ import { GraphQLUpload } from 'apollo-server-express';
 import { FileUpload } from 'graphql-upload';
 
 @InputType()
-class UpdateUserInput {
+class UpdateUserInputTypeUser {
   @Field({ nullable: true })
   _id: string;
 
@@ -23,4 +23,13 @@ class UpdateUserInput {
   updated_at: Date;
 }
 
-export { UpdateUserInput };
+@InputType()
+class UpdateUserInput {
+  @Field()
+  token: string;
+
+  @Field()
+  user: UpdateUserInputTypeUser;
+}
+
+export { UpdateUserInput, UpdateUserInputTypeUser };

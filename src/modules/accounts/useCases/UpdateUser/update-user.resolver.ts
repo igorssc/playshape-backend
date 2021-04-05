@@ -1,7 +1,7 @@
 import { ForbiddenException, UseGuards } from '@nestjs/common';
 import { ApiForbiddenResponse } from '@nestjs/swagger';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import mongoose, { Mongoose, Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 import { GetUserIdDecorator } from '../../../../decorators/get-user-id.decorator';
 import { Actions } from '../../../../enuns/actions.enum';
@@ -28,9 +28,10 @@ class UpdateUserResolver {
   @UseGuards(AuthenticateGuard)
   async updateUser(
     @GetUserIdDecorator() currentUserId: string,
-    @Args('token') _token: string,
-    @Args('user') user: UpdateUserInput,
+    @Args('input') input: UpdateUserInput,
   ) {
+    const { user } = input;
+
     let userId = currentUserId;
 
     if (user._id) {

@@ -16,10 +16,13 @@ export class AuthenticateGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(context);
-    const { token } = ctx.getArgs();
+    const { input } = ctx.getArgs();
 
     try {
-      const { sub: user_id } = verify(token, process.env.KEY_AUTHENTICATE) as {
+      const { sub: user_id } = verify(
+        input.token,
+        process.env.KEY_AUTHENTICATE,
+      ) as {
         sub: string;
       };
       const user = await this.usersRepository.findById(user_id);

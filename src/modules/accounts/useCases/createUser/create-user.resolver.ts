@@ -9,8 +9,8 @@ class CreateUserResolver {
   constructor(private createUsersService: CreateUsersService) {}
 
   @Mutation(() => ListUserDTO)
-  async createUser(@Args('user') user: CreateUserInput) {
-    const createdUser = await this.createUsersService.execute(user);
+  async createUser(@Args('input') input: CreateUserInput) {
+    const createdUser = await this.createUsersService.execute(input);
     return createdUser;
   }
 }

@@ -21,7 +21,6 @@ import { GraphQLError, GraphQLFormattedError } from 'graphql';
       introspection: true,
       playground: true,
       formatError: (error: GraphQLError) => {
-        console.log(error);
         const graphQLFormattedError: GraphQLFormattedError = {
           message:
             error.extensions.exception.response.message ||

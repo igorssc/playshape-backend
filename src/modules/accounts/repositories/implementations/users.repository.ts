@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, PaginateModel, PaginateResult } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 
@@ -9,7 +9,8 @@ import { CreateUserInput } from '../../inputs/create-user.input';
 @Injectable()
 class UsersRepository implements IUsersRepository {
   constructor(
-    @InjectModel(User.name) private repository: Model<UserDocument>,
+    @InjectModel(User.name)
+    private userModel: Model<UserDocument>,
   ) {}
 
   async create(user: CreateUserInput): Promise<User> {
@@ -17,30 +18,35 @@ class UsersRepository implements IUsersRepository {
 
     Object.assign(newUser, user);
 
-    const repository = new this.repository(newUser);
+    const repository = new this.userModel(newUser);
 
     return await repository.save();
   }
 
-  async listAll(): Promise<User[]> {
-    const users = await this.repository.find();
+  async listAll(
+    page: number,
+    limit: number,
+  ): Promise<PaginateResult<UserDocument>> {
+    const users = await (this
+      .userModel as PaginateModel<UserDocument>).paginate({}, { page, limit });
+
     return users;
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user = await this.repository.findOne({ email });
+    const user = await this.userModel.findOne({ email });
 
     return user;
   }
 
   async findById(id: string): Promise<User> {
-    const user = await this.repository.findOne({ _id: id });
+    const user = await this.userModel.findOne({ _id: id });
 
     return user;
   }
 
   async update(id: string, data: any): Promise<User> {
-    const user = await this.repository.findOneAndUpdate({ _id: id }, data, {
+    const user = await this.userModel.findOneAndUpdate({ _id: id }, data, {
       new: true,
     });
 

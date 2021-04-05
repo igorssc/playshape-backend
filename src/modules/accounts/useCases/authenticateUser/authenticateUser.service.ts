@@ -4,7 +4,7 @@ import { sign } from 'jsonwebtoken';
 
 import { ListUserAuthenticatedDTO } from '../../dtos/list-user-authenticated.dto';
 import { ListUserDTO } from '../../dtos/list-user.dto';
-import { LoginUserInput } from '../../inputs/login-user.input';
+import { AuthenticateUserInput } from '../../inputs/authenticate-user.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';
 
 @Injectable()
@@ -14,7 +14,7 @@ class AuthenticateUserService {
   async execute({
     email,
     password,
-  }: LoginUserInput): Promise<ListUserAuthenticatedDTO> {
+  }: AuthenticateUserInput): Promise<ListUserAuthenticatedDTO> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {

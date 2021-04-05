@@ -1,4 +1,10 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { verify } from 'jsonwebtoken';
@@ -7,10 +13,12 @@ import { AppAbility, CaslAbilityFactory } from '../casl/casl-ability.factory';
 import { PolicyHandler } from '../casl/interfaces/IPolicy.handler';
 import { CHECK_POLICIES_KEY } from '../decorators/check-policies.decorator';
 import { GetUser } from '../modules/accounts/common/get-user';
+import { UsersRepository } from '../modules/accounts/repositories/implementations/users.repository';
 
 @Injectable()
 export class PoliciesGuardListUsers implements CanActivate {
   constructor(
+    private readonly usersRepository: UsersRepository,
     private reflector: Reflector,
     private caslAbilityFactory: CaslAbilityFactory,
     private getUser: GetUser,
@@ -24,19 +32,31 @@ export class PoliciesGuardListUsers implements CanActivate {
       ) || [];
 
     const ctx = GqlExecutionContext.create(context);
-    const { token, user: editUser } = ctx.getArgs();
+    const { input } = ctx.getArgs();
 
-    const { sub: user_id } = verify(token, process.env.KEY_AUTHENTICATE) as {
-      sub: string;
-    };
+    try {
+      const { sub: user_id } = verify(
+        input.token,
+        process.env.KEY_AUTHENTICATE,
+      ) as {
+        sub: string;
+      };
+      const user = await this.usersRepository.findById(user_id);
 
-    const currentUser = await this.getUser.get(user_id);
+      if (!user) {
+        throw new HttpException('User does not exists!', HttpStatus.NOT_FOUND);
+      }
 
-    const ability = this.caslAbilityFactory.listUsers(currentUser);
+      const currentUser = await this.getUser.get(user_id);
 
-    return policyHandlers.every((handler) =>
-      this.execPolicyHandler(handler, ability),
-    );
+      const ability = this.caslAbilityFactory.listUsers(currentUser);
+
+      return policyHandlers.every((handler) =>
+        this.execPolicyHandler(handler, ability),
+      );
+    } catch {
+      throw new HttpException('Invalid token!', HttpStatus.UNAUTHORIZED);
+    }
   }
 
   private execPolicyHandler(handler: PolicyHandler, ability: AppAbility) {

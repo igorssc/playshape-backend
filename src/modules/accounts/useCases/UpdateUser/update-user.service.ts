@@ -1,16 +1,19 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { ListUserDTO } from '../../dtos/list-user.dto';
-import { UpdateUserInput } from '../../inputs/update-user.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';
 import { deleteFile } from '../../../../storage/delete';
 import { uploadFile } from '../../../../config/upload';
+import { UpdateUserInputTypeUser } from '../../inputs/update-user.input';
 
 @Injectable()
 class UpdateUserService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async execute(userId: string, user: UpdateUserInput): Promise<ListUserDTO> {
+  async execute(
+    userId: string,
+    user: UpdateUserInputTypeUser,
+  ): Promise<ListUserDTO> {
     if (user.email) {
       const userAlreadyExists = await this.usersRepository.findByEmail(
         user.email,
@@ -39,7 +42,6 @@ class UpdateUserService {
     }
 
     const updatedUser = await this.usersRepository.update(userId, user);
-    console.log('current', updatedUser);
 
     return (updatedUser as unknown) as ListUserDTO;
   }

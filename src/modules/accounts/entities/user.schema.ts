@@ -1,5 +1,6 @@
 import { Prop, Schema as SchemaType, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 import { Actions } from '../../../enuns/actions.enum';
 
@@ -42,4 +43,7 @@ export class User {
   permissions: Actions[];
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+const UserSchema = SchemaFactory.createForClass(User);
+UserSchema.plugin(mongoosePaginate);
+
+export { UserSchema };

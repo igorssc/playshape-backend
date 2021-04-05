@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 
-import { ListUserDTO } from '../../dtos/list-user.dto';
+import { ListUsersDTO } from '../../dtos/list-users.dto';
+import { ListUsersInput } from '../../inputs/list-users.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';
 
 @Injectable()
 class ListUsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async execute(): Promise<ListUserDTO[]> {
-    const users = await this.usersRepository.listAll();
-    return (users as unknown) as ListUserDTO[];
+  async execute({ page, limit }: ListUsersInput): Promise<ListUsersDTO> {
+    const users = await this.usersRepository.listAll(page, limit);
+
+    return (users as unknown) as ListUsersDTO;
   }
 }
 

@@ -22,7 +22,6 @@ import { UpdateUserService } from './useCases/UpdateUser/update-user.service';
     CaslAbilityFactory,
     UsersRepository,
     GetUser,
-
     AuthenticateUserResolver,
     AuthenticateUserService,
     CreateUserResolver,
