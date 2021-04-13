@@ -1,30 +1,25 @@
-import { ForbiddenException, UseGuards } from '@nestjs/common';
-import { ApiForbiddenResponse } from '@nestjs/swagger';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import mongoose from 'mongoose';
-
+import { CaslAbilityFactory } from '../../../../casl/casl-ability.factory';
 import { GetUserIdDecorator } from '../../../../decorators/get-user-id.decorator';
-import { Actions } from '../../../../enuns/actions.enum';
-import { AuthenticateGuard } from '../../../../guards/authenticate.guard';
-import { ListUserDTO } from '../../dtos/list-user.dto';
+import { ActionsUser } from '../../../../enuns/actions-user.enum';
+import { AuthenticateGuard } from '../../../../guards/authenticate-user.guard';
+import { UpdateUserDTO } from '../../dtos/update-user.dto';
 import { User } from '../../entities/user.schema';
 import { UpdateUserInput } from '../../inputs/update-user.input';
+import { FindUserService } from '../findUser/find-user.service';
 import { UpdateUserService } from './update-user.service';
-import { GetUser } from '../../common/get-user';
-import { CaslAbilityFactory } from '../../../../casl/casl-ability.factory';
 
 @Resolver()
 class UpdateUserResolver {
   constructor(
     private updateUserService: UpdateUserService,
     private caslAbilityFactory: CaslAbilityFactory,
-    private getUser: GetUser,
+    private findUserService: FindUserService,
   ) {}
 
-  @ApiForbiddenResponse({
-    description: 'You are not authorized to perform that action',
-  })
-  @Mutation(() => ListUserDTO)
+  @Mutation(() => UpdateUserDTO)
   @UseGuards(AuthenticateGuard)
   async updateUser(
     @GetUserIdDecorator() currentUserId: string,
@@ -41,12 +36,20 @@ class UpdateUserResolver {
         _id: mongoose.Types.ObjectId(user._id),
       });
 
-      const currentUser = await this.getUser.get(currentUserId);
+      const currentUser = await this.findUserService.execute({
+        _id: currentUserId,
+      });
 
-      const ability = this.caslAbilityFactory.updateUser(currentUser);
+      const ability = this.caslAbilityFactory.checkPermission(
+        currentUser as User,
+        ActionsUser.UpdateUsers,
+      );
 
-      if (!ability.can(Actions.UpdateUser, editUser)) {
-        throw new ForbiddenException();
+      if (!ability.can(ActionsUser.UpdateUsers, editUser)) {
+        throw new HttpException(
+          'You are not authorized to perform that action',
+          HttpStatus.FORBIDDEN,
+        );
       }
 
       userId = user._id;

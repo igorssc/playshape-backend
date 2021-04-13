@@ -1,9 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-
-import { ListUserAuthenticatedDTO } from '../../dtos/list-user-authenticated.dto';
-import { ListUserDTO } from '../../dtos/list-user.dto';
+import { StatusUser } from '../../../../enuns/status-user.enum';
+import { FindUserAuthenticatedDTO } from '../../dtos/find-user-authenticated.dto';
 import { AuthenticateUserInput } from '../../inputs/authenticate-user.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';
 
@@ -14,17 +13,21 @@ class AuthenticateUserService {
   async execute({
     email,
     password,
-  }: AuthenticateUserInput): Promise<ListUserAuthenticatedDTO> {
-    const user = await this.usersRepository.findByEmail(email);
+  }: AuthenticateUserInput): Promise<FindUserAuthenticatedDTO> {
+    const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
-    if (!user) {
+    if (!userAlreadyExists) {
       throw new HttpException(
         'Email or password incorrect',
         HttpStatus.BAD_REQUEST,
       );
     }
 
-    const passwordMatch = await compare(password, user.password);
+    if (userAlreadyExists.status != StatusUser.Active) {
+      throw new HttpException('Blocked user', HttpStatus.FORBIDDEN);
+    }
+
+    const passwordMatch = await compare(password, userAlreadyExists.password);
 
     if (!passwordMatch) {
       throw new HttpException(
@@ -33,11 +36,16 @@ class AuthenticateUserService {
       );
     }
 
+    const user = await this.usersRepository.update(userAlreadyExists._id, {
+      last_login: new Date(),
+    });
+
     const token = sign({}, process.env.KEY_AUTHENTICATE, {
-      subject: String((user as ListUserDTO)._id),
+      subject: String(user._id),
       expiresIn: '1d',
     });
-    return { user, token } as ListUserAuthenticatedDTO;
+
+    return { user, token };
   }
 }
 

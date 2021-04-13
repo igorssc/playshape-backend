@@ -16,5 +16,4 @@ export interface IUpdateUser {
 
   password: string;
   profile_picture?: { filename?: string; url?: string };
-  updated_at: Date;
 }

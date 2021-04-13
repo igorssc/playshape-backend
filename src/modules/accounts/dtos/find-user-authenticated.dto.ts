@@ -1,9 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-
 import { UserDTO } from './user.dto';
 
 @ObjectType()
-class ListUserAuthenticatedDTO {
+class FindUserAuthenticatedDTO {
   @Field()
   user: UserDTO;
 
@@ -11,4 +10,4 @@ class ListUserAuthenticatedDTO {
   token: string;
 }
 
-export { ListUserAuthenticatedDTO };
+export { FindUserAuthenticatedDTO };

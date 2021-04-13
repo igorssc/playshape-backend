@@ -1,8 +1,8 @@
 import { Prop, Schema as SchemaType, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document, Schema } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
-
-import { Actions } from '../../../enuns/actions.enum';
+import { ActionsUser } from '../../../enuns/actions-user.enum';
+import { StatusUser } from '../../../enuns/status-user.enum';
 
 export type UserDocument = User & Document;
 
@@ -34,13 +34,13 @@ class Address {
 export class User {
   _id: Schema.Types.ObjectId;
 
-  @Prop()
+  @Prop({ trim: true })
   name: string;
 
-  @Prop()
+  @Prop({ unique: true, trim: true })
   email: string;
 
-  @Prop()
+  @Prop({ unique: true })
   cpf: string;
 
   @Prop()
@@ -61,11 +61,17 @@ export class User {
   @Prop({ default: new Date() })
   updated_at: Date;
 
+  @Prop()
+  last_login: Date;
+
   @Prop({ default: new Date() })
   created_at: Date;
 
+  @Prop({ default: 'active' })
+  status: StatusUser;
+
   @Prop({ default: [] })
-  permissions: Actions[];
+  permissions: ActionsUser[];
 }
 
 const UserSchema = SchemaFactory.createForClass(User);

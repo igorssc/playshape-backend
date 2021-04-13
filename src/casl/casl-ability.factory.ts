@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import {
   Ability,
   AbilityBuilder,
@@ -6,48 +5,39 @@ import {
   ExtractSubjectType,
   InferSubjects,
 } from '@casl/ability';
-
+import { Injectable } from '@nestjs/common';
+import { ActionsUser } from '../enuns/actions-user.enum';
 import { User } from '../modules/accounts/entities/user.schema';
-import { Actions } from '../enuns/actions.enum';
 
-type Subjects = InferSubjects<typeof User> | 'User' | 'all';
+type Subjects = InferSubjects<typeof User> | 'all';
 
-export type AppAbility = Ability<[Actions, Subjects]>;
+export type AppAbility = Ability<[ActionsUser, Subjects]>;
 
 @Injectable()
 export class CaslAbilityFactory {
-  listUsers(currentUser: User) {
+  checkPermission(currentUser: User, permissionType: ActionsUser) {
     const { can, cannot, build } = new AbilityBuilder<
-      Ability<[Actions, Subjects]>
+      Ability<[ActionsUser, Subjects]>
     >(Ability as AbilityClass<AppAbility>);
 
-    const permission = currentUser.permissions.some(
-      (permission) => permission == Actions.ListUsers,
+    can(permissionType, User, { _id: currentUser._id });
+
+    console.log(
+      JSON.stringify(can(permissionType, User, { _id: currentUser._id })),
     );
 
-    if (currentUser.isAdmin && permission) {
-      can(Actions.ListUsers, 'all');
-    }
+    try {
+      const permission = currentUser?.permissions.some(
+        (permission) => permission == String(permissionType),
+      );
 
-    return build({
-      detectSubjectType: (item) =>
-        item.constructor as ExtractSubjectType<Subjects>,
-    });
-  }
+      console.log(currentUser._id);
 
-  updateUser(currentUser: User) {
-    const { can, cannot, build } = new AbilityBuilder<
-      Ability<[Actions, Subjects]>
-    >(Ability as AbilityClass<AppAbility>);
-
-    can(Actions.UpdateUser, User, { _id: currentUser._id });
-
-    const permission = currentUser.permissions.some(
-      (permission) => permission == Actions.UpdateUser,
-    );
-
-    if (currentUser.isAdmin && permission) {
-      can(Actions.UpdateUser, 'all');
+      if (currentUser.isAdmin && permission) {
+        can(permissionType, 'all');
+      }
+    } catch (err) {
+      console.log(err);
     }
 
     return build({

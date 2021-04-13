@@ -1,10 +1,10 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UserDTO } from './user.dto';
+import { CategoryDTO } from './category.dto';
 
 @ObjectType()
-export class ListUsersDTO {
-  @Field(() => [UserDTO])
-  users: UserDTO[];
+export class ListCategoriesDTO {
+  @Field(() => [CategoryDTO])
+  categories: CategoryDTO[];
   @Field()
   totalDocs: number;
   @Field()

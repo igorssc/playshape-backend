@@ -18,7 +18,7 @@ class UpdateUserInputTypeAddress {
   zipCode: string;
 }
 @InputType()
-class UpdateUserInputTypeUser {
+class UserType {
   @Field({ nullable: true })
   _id: string;
 
@@ -42,9 +42,6 @@ class UpdateUserInputTypeUser {
 
   @Field({ nullable: true })
   password: string;
-
-  @Field({ defaultValue: new Date() })
-  updated_at: Date;
 }
 
 @InputType()
@@ -53,7 +50,7 @@ class UpdateUserInput {
   token: string;
 
   @Field()
-  user: UpdateUserInputTypeUser;
+  user: UserType;
 }
 
-export { UpdateUserInput, UpdateUserInputTypeUser };
+export { UpdateUserInput };

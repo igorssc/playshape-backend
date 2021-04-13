@@ -1,8 +1,7 @@
 import { ObjectType } from '@nestjs/graphql';
-
 import { UserDTO } from './user.dto';
 
 @ObjectType()
-class ListUserDTO extends UserDTO {}
+class FindUserDTO extends UserDTO {}
 
-export { ListUserDTO };
+export { FindUserDTO };

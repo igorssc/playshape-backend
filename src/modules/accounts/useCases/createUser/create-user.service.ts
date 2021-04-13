@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
-
-import { ListUserDTO } from '../../dtos/list-user.dto';
+import { CreateUserDTO } from '../../dtos/create-user.dto';
 import { CreateUserInput } from '../../inputs/create-user.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';
 
@@ -13,7 +12,7 @@ class CreateUsersService {
     name,
     email,
     password,
-  }: CreateUserInput): Promise<ListUserDTO> {
+  }: CreateUserInput): Promise<CreateUserDTO> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
     if (userAlreadyExists) {
@@ -27,7 +26,7 @@ class CreateUsersService {
       email,
       password: passwordHash,
     });
-    return createdUser as ListUserDTO;
+    return createdUser;
   }
 }
 

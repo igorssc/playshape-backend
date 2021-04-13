@@ -59,4 +59,10 @@ export class UserDTO {
 
   @Field()
   updated_at: Date;
+
+  @Field({ nullable: true })
+  last_login: Date;
+
+  @Field()
+  status: string;
 }

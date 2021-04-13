@@ -1,10 +1,9 @@
-import { Model, PaginateModel, PaginateResult } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
-
-import { IUsersRepository } from '../IUsers.repository';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, ObjectId, PaginateModel, PaginateResult } from 'mongoose';
 import { User, UserDocument } from '../../entities/user.schema';
 import { CreateUserInput } from '../../inputs/create-user.input';
+import { IUsersRepository } from '../IUsers.repository';
 
 @Injectable()
 class UsersRepository implements IUsersRepository {
@@ -27,6 +26,15 @@ class UsersRepository implements IUsersRepository {
     page: number,
     limit: number,
   ): Promise<PaginateResult<UserDocument>> {
+    const teste = await this.userModel.aggregate([
+      {
+        $match: { email: 'igorsantoscosta@gmail.com' },
+      },
+      {
+        $project: { email: 1, address: 1 },
+      },
+    ]);
+
     const users = await (this
       .userModel as PaginateModel<UserDocument>).paginate({}, { page, limit });
 
@@ -39,13 +47,19 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async findById(id: string): Promise<User> {
-    const user = await this.userModel.findOne({ _id: id });
+  async findByCpf(cpf: string): Promise<User> {
+    const user = await this.userModel.findOne({ cpf });
 
     return user;
   }
 
-  async update(id: string, data: any): Promise<User> {
+  async findById(_id: string): Promise<User> {
+    const user = await this.userModel.findOne({ _id });
+
+    return user;
+  }
+
+  async update(id: string | ObjectId, data: any): Promise<User> {
     const user = await this.userModel.findOneAndUpdate({ _id: id }, data, {
       new: true,
     });
@@ -55,3 +69,4 @@ class UsersRepository implements IUsersRepository {
 }
 
 export { UsersRepository };
+

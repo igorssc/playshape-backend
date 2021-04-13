@@ -1,14 +1,13 @@
-import fs from 'fs';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { FileUpload } from 'graphql-upload';
-import { resolve } from 'path';
 import { createReader } from 'awaitify-stream';
-
+import fs from 'fs';
+import { FileUpload } from 'graphql-upload';
+import mkdirp from 'mkdirp';
+import { resolve } from 'path';
 import { handleFileData } from '../storage/upload';
-import validate from '../utils/validateFile';
 import compressPicture from '../utils/compressPicture';
 import generateName from '../utils/generateName';
-import mkdirp from 'mkdirp';
+import validate from '../utils/validateFile';
 
 interface IUploadFile {
   url: string;
@@ -68,10 +67,10 @@ const uploadFile = async (
     buffer = Buffer.concat(bufferArray);
   }
 
-  if (dir) filename = dir + '/' + filename;
+  const filePath = dir ? dir + '/' + filename : filename;
 
   try {
-    const upload = await handleFileData(buffer, filename, mimetype);
+    const upload = await handleFileData(buffer, filePath, mimetype);
 
     url = upload.Location;
   } catch (error) {
