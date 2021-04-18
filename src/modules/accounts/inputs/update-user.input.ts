@@ -1,24 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { GraphQLUpload } from 'apollo-server-express';
 import { FileUpload } from 'graphql-upload';
+import { AddressInput } from '../../../common/inputs/address.input';
 
 @InputType()
-class UpdateUserInputTypeAddress {
-  @Field({ nullable: true })
-  street: string;
-  @Field({ nullable: true })
-  number: number;
-  @Field({ nullable: true })
-  neighborhood: string;
-  @Field({ nullable: true })
-  city: string;
-  @Field({ nullable: true })
-  state: string;
-  @Field({ nullable: true })
-  zipCode: string;
-}
-@InputType()
-class UserType {
+export class UpdateUserInput {
   @Field({ nullable: true })
   _id: string;
 
@@ -34,8 +20,8 @@ class UserType {
   @Field({ nullable: true })
   cpf: string;
 
-  @Field(() => [UpdateUserInputTypeAddress], { nullable: true })
-  address: UpdateUserInputTypeAddress[];
+  @Field(() => [AddressInput], { nullable: true })
+  address: AddressInput[];
 
   @Field(() => GraphQLUpload, { nullable: true })
   profile_picture: FileUpload;
@@ -43,14 +29,3 @@ class UserType {
   @Field({ nullable: true })
   password: string;
 }
-
-@InputType()
-class UpdateUserInput {
-  @Field()
-  token: string;
-
-  @Field()
-  user: UserType;
-}
-
-export { UpdateUserInput };

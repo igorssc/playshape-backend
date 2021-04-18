@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId, PaginateModel, PaginateResult } from 'mongoose';
-import { User, UserDocument } from '../../entities/user.schema';
+import { User, UserDocument } from '../../entities/user.entity';
 import { CreateUserInput } from '../../inputs/create-user.input';
-import { IUsersRepository } from '../IUsers.repository';
+import { IUsersRepository } from '../users.repository.interface';
 
 @Injectable()
-class UsersRepository implements IUsersRepository {
+export class UsersRepository implements IUsersRepository {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<UserDocument>,
@@ -26,15 +26,6 @@ class UsersRepository implements IUsersRepository {
     page: number,
     limit: number,
   ): Promise<PaginateResult<UserDocument>> {
-    const teste = await this.userModel.aggregate([
-      {
-        $match: { email: 'igorsantoscosta@gmail.com' },
-      },
-      {
-        $project: { email: 1, address: 1 },
-      },
-    ]);
-
     const users = await (this
       .userModel as PaginateModel<UserDocument>).paginate({}, { page, limit });
 
@@ -67,6 +58,3 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 }
-
-export { UsersRepository };
-

@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-class User {
+export class FindUserInput {
   @Field({ nullable: true })
   _id: string;
 
@@ -11,14 +11,3 @@ class User {
   @Field({ nullable: true })
   cpf: string;
 }
-
-@InputType()
-class FindUserInput {
-  @Field()
-  token: string;
-
-  @Field({ nullable: true })
-  user: User;
-}
-
-export { FindUserInput };

@@ -1,15 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-class ListUsersInput {
+export class ListUsersInput {
   @Field()
-  token: string;
-
-  @Field({ defaultValue: 1 })
   page: number;
 
-  @Field({ defaultValue: 15 })
+  @Field()
   limit: number;
 }
-
-export { ListUsersInput };

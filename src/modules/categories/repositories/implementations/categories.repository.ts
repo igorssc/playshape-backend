@@ -3,16 +3,16 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId, PaginateModel, PaginateResult } from 'mongoose';
 import { Category, CategoryDocument } from '../../entities/category.schema';
 import { CreateCategoryInput } from '../../inputs/create-category.input';
-import { ICategoriesRepository } from '../ICategories.repository';
+import { ICategoriesRepository } from '../categories.repository.interface';
 
 @Injectable()
-class CategoriesRepository implements ICategoriesRepository {
+export class CategoriesRepository implements ICategoriesRepository {
   constructor(
     @InjectModel(Category.name)
     private categoryModel: Model<CategoryDocument>,
   ) {}
 
-  async create(category: CreateCategoryInput['category']): Promise<Category> {
+  async create(category: CreateCategoryInput): Promise<Category> {
     const newCategory = new Category();
 
     Object.assign(newCategory, category);
@@ -59,5 +59,3 @@ class CategoriesRepository implements ICategoriesRepository {
     return category;
   }
 }
-
-export { CategoriesRepository };

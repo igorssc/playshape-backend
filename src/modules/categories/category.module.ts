@@ -3,12 +3,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from '../accounts/user.module';
 import { Category, CategorySchema } from './entities/category.schema';
 import { CategoriesRepository } from './repositories/implementations/categories.repository';
-import { CreateCategoryResolver } from './useCases/createCategory/create-category.resolver';
-import { CreateCategoriesService } from './useCases/createCategory/create-category.service';
-import { ListCategoriesResolver } from './useCases/listCategories/list-categories.resolver';
-import { ListCategoriesService } from './useCases/listCategories/list-categories.service';
-import { UpdateCategoryResolver } from './useCases/updateCategory/update-category.resolver';
-import { UpdateCategoryService } from './useCases/updateCategory/update-category.service';
+import { CreateCategoryResolver } from './use-cases/create-category/create-category.resolver';
+import { CreateCategoriesService } from './use-cases/create-category/create-category.service';
+import { ListCategoriesResolver } from './use-cases/list-categories/list-categories.resolver';
+import { ListCategoriesService } from './use-cases/list-categories/list-categories.service';
+import { UpdateCategoryResolver } from './use-cases/update-category/update-category.resolver';
+import { UpdateCategoryService } from './use-cases/update-category/update-category.service';
 
 @Module({
   imports: [

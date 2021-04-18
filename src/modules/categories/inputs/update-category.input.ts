@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-class UpdateCategoryInputTypeCategory {
+export class UpdateCategoryInput {
   @Field()
   _id: string;
 
@@ -11,14 +11,3 @@ class UpdateCategoryInputTypeCategory {
   @Field({ nullable: true })
   description: string;
 }
-
-@InputType()
-class UpdateCategoryInput {
-  @Field()
-  token: string;
-
-  @Field()
-  category: UpdateCategoryInputTypeCategory;
-}
-
-export { UpdateCategoryInput, UpdateCategoryInputTypeCategory };

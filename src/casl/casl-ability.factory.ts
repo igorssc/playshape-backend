@@ -7,7 +7,7 @@ import {
 } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
 import { ActionsUser } from '../enuns/actions-user.enum';
-import { User } from '../modules/accounts/entities/user.schema';
+import { User } from '../modules/accounts/entities/user.entity';
 
 type Subjects = InferSubjects<typeof User> | 'all';
 
@@ -22,16 +22,10 @@ export class CaslAbilityFactory {
 
     can(permissionType, User, { _id: currentUser._id });
 
-    console.log(
-      JSON.stringify(can(permissionType, User, { _id: currentUser._id })),
-    );
-
     try {
       const permission = currentUser?.permissions.some(
         (permission) => permission == String(permissionType),
       );
-
-      console.log(currentUser._id);
 
       if (currentUser.isAdmin && permission) {
         can(permissionType, 'all');

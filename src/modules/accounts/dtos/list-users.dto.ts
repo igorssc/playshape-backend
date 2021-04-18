@@ -1,26 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { PaginateDTO } from '../../../common/dtos/paginate.dto';
 import { UserDTO } from './user.dto';
 
 @ObjectType()
-export class ListUsersDTO {
-  @Field(() => [UserDTO])
+export class ListUsersDTO extends PaginateDTO {
+  @Field(() => [UserDTO], { defaultValue: [] })
   users: UserDTO[];
-  @Field()
-  totalDocs: number;
-  @Field()
-  limit: number;
-  @Field()
-  totalPages: number;
-  @Field()
-  page: number;
-  @Field()
-  pagingCounter: number;
-  @Field()
-  hasPrevPage: boolean;
-  @Field()
-  hasNextPage: boolean;
-  @Field()
-  prevPage: number;
-  @Field()
-  nextPage: number;
 }

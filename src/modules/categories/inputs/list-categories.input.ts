@@ -1,12 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-class ListCategoriesInput {
-  @Field({ defaultValue: 1 })
+export class ListCategoriesInput {
+  @Field()
   page: number;
 
-  @Field({ defaultValue: 15 })
+  @Field()
   limit: number;
 }
-
-export { ListCategoriesInput };

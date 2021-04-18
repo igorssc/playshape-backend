@@ -5,9 +5,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { UsersModule } from './modules/accounts/user.module';
 import { CategoryModule } from './modules/categories/category.module';
+import { ProductModule } from './modules/products/product.module';
+import { StoreModule } from './modules/stores/store.module';
 
 @Module({
   imports: [
+    ProductModule,
+    StoreModule,
     CategoryModule,
     UsersModule,
     ConfigModule.forRoot({

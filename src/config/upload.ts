@@ -5,16 +5,16 @@ import { FileUpload } from 'graphql-upload';
 import mkdirp from 'mkdirp';
 import { resolve } from 'path';
 import { handleFileData } from '../storage/upload';
-import compressPicture from '../utils/compressPicture';
-import generateName from '../utils/generateName';
-import validate from '../utils/validateFile';
+import compressPicture from '../utils/compress-picture';
+import generateName from '../utils/generate-name';
+import validate from '../utils/validate-file';
 
 interface IUploadFile {
   url: string;
   filename: string;
 }
 
-const uploadFile = async (
+export const uploadFile = async (
   file: FileUpload,
   type: string,
   dir?: string,
@@ -82,5 +82,3 @@ const uploadFile = async (
 
   return { url, filename };
 };
-
-export { uploadFile };
