@@ -3,6 +3,7 @@ import { Prop, Schema as SchemaType, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { StatusProduct } from '../../../enuns/status-product';
+import { CategoryDTO } from '../../categories/dtos/category.dto';
 import { StoreDTO } from '../../stores/dtos/store.dto';
 
 export type ProductDocument = Product & Document;
@@ -22,7 +23,7 @@ export class Product {
   description: string;
 
   @Prop()
-  @Field(() => [String])
+  @Field(() => [CategoryDTO])
   category: string[];
 
   @Prop()
