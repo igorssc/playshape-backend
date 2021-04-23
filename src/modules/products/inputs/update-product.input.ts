@@ -37,7 +37,7 @@ export class UpdateProductInput {
   @Field({ nullable: true })
   description: string;
 
-  @Field({ nullable: true })
+  @Field(() => [String], { nullable: true })
   category: string[];
 
   @Field({ nullable: true })

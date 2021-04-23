@@ -9,7 +9,7 @@ export class CreateProductInput {
   @Field()
   description: string;
 
-  @Field()
+  @Field(() => [String])
   category: string[];
 
   @Field()
