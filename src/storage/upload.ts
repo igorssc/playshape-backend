@@ -1,4 +1,4 @@
-import { s3 } from '../config/aws';
+import s3 from '../config/aws';
 
 const uploadToS3 = async (data: Buffer, fileName: string, mimetype: string) => {
   const params = {

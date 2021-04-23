@@ -1,4 +1,4 @@
-import { s3 } from '../config/aws';
+import s3 from '../config/aws';
 
 let deleteToS3 = async (fileName: string) => {
   const params = {
