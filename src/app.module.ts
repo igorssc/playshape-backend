@@ -43,7 +43,7 @@ import { StoreModule } from './modules/stores/store.module';
       },
       uploads: {
         maxFileSize: 20000000, // 20 MB
-        maxFiles: 5,
+        maxFiles: 100,
       },
     }),
   ],
