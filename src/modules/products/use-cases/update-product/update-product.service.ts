@@ -40,6 +40,8 @@ export class UpdateProductService {
             Object.assign(variant, { picture: path });
           }
 
+          Object.assign(variant, { updated_at: new Date() });
+
           const updateVariant = await this.variantsRepository.update(
             variant._id,
             variant,
@@ -54,6 +56,8 @@ export class UpdateProductService {
 
     if (product._id) {
       delete product.variants;
+
+      Object.assign(product, { updated_at: new Date() });
 
       await this.productsRepository.update(product._id, product);
     }

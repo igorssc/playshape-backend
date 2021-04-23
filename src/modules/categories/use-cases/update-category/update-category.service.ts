@@ -31,6 +31,8 @@ export class UpdateCategoryService {
       }
     }
 
+    Object.assign(category, { updated_at: new Date() });
+
     const updatedCategory = await this.categoriesRepository.update(
       category._id,
       category,
