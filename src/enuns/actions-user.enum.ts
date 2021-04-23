@@ -3,6 +3,8 @@ export enum ActionsUser {
   UpdateUsers = 'updateUsers',
   UpdateCategories = 'updateCategories',
   UpdateStores = 'updateStores',
+  UpdateProducts = 'updateProducts',
   CreateCategories = 'createCategories',
+  CreateProduct = 'createProduct',
   FindUsers = 'findUsers',
 }

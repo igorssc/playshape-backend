@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { validateObjectId } from '../../../../utils/validate-objectid';
 import { FindUserDTO } from '../../dtos/find-user.dto';
 import { FindUserInput } from '../../inputs/find-user.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';
@@ -19,6 +20,10 @@ export class FindUserService {
 
     if (args === 0) {
       Object.assign(user, { _id: currentId });
+    }
+
+    if (user._id) {
+      validateObjectId(user._id);
     }
 
     const findUser = user._id

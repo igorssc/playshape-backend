@@ -4,4 +4,10 @@ import { Field, InputType } from '@nestjs/graphql';
 export class FindProductsByNameInput {
   @Field()
   name: string;
+
+  @Field({ defaultValue: 1, nullable: true })
+  page: number;
+
+  @Field({ defaultValue: 15, nullable: true })
+  limit: number;
 }

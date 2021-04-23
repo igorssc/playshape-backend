@@ -3,7 +3,7 @@ import { Prop, Schema as SchemaType, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { Address } from '../../../common/entities/address.entity';
-import { ProfilePicture } from '../../../common/entities/profile-picture.entity';
+import { Picture } from '../../../common/entities/picture.entity';
 import { StatusStore } from '../../../enuns/status-store.enum';
 
 export type StoreDocument = Store & Document;
@@ -44,7 +44,7 @@ export class Store {
 
   @Prop()
   @Field({ nullable: true })
-  profile_picture: ProfilePicture;
+  profile_picture: Picture;
 
   @Prop()
   @Field()

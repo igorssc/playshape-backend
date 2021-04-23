@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import mongoose from 'mongoose';
-import { CaslAbilityFactory } from '../../../../casl/casl-ability.factory';
+import { CaslAbilityFactory } from '../../../../casl/implementations/casl-ability.factory';
 import { GetIdByToken } from '../../../../decorators/get-id-by-token.decorator';
 import { ActionsUser } from '../../../../enuns/actions-user.enum';
 import { AuthenticateGuard } from '../../../../guards/authenticate-user.guard';
+import { validateObjectId } from '../../../../utils/validate-objectid';
 import { UpdateUserDTO } from '../../dtos/update-user.dto';
 import { User } from '../../entities/user.entity';
 import { FindUserInput } from '../../inputs/find-user.input';
@@ -29,6 +30,8 @@ export class UpdateUserResolver {
     let userId = currentUserId;
 
     if (input._id) {
+      validateObjectId(input._id);
+
       const editUser = Object.assign(new User(), {
         _id: mongoose.Types.ObjectId(input._id),
       });

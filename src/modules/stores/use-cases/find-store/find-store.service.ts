@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { validateObjectId } from '../../../../utils/validate-objectid';
 import { FindStoreInput } from '../../inputs/find-store.input';
-import { StoreRepository } from '../../repositories/implementations/store.repository';
+import { StoresRepository } from '../../repositories/implementations/stores.repository';
 
 @Injectable()
 export class FindStoreService {
-  constructor(private readonly storeRepository: StoreRepository) {}
+  constructor(private readonly storesRepository: StoresRepository) {}
 
   async execute(store: FindStoreInput) {
     const args = Object.keys(store).length;
@@ -23,14 +24,18 @@ export class FindStoreService {
       );
     }
 
+    if (store._id) {
+      validateObjectId(store._id);
+    }
+
     const findStore = store._id
-      ? await this.storeRepository.findById(store._id)
+      ? await this.storesRepository.findById(store._id)
       : store.email
-      ? await this.storeRepository.findByEmail(store.email)
+      ? await this.storesRepository.findByEmail(store.email)
       : store.cpf
-      ? await this.storeRepository.findByCpf(store.cpf)
+      ? await this.storesRepository.findByCpf(store.cpf)
       : store.slug
-      ? await this.storeRepository.findBySlug(store.slug)
+      ? await this.storesRepository.findBySlug(store.slug)
       : undefined;
 
     if (!findStore) {

@@ -2,7 +2,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from '../accounts/user.module';
 import { Store, StoreSchema } from './entities/store.entity';
-import { StoreRepository } from './repositories/implementations/store.repository';
+import { StoresRepository } from './repositories/implementations/stores.repository';
 import { AuthenticateStoreResolver } from './use-cases/authenticate-store/authenticate-store.resolver';
 import { AuthenticateStoreService } from './use-cases/authenticate-store/authenticate-store.service';
 import { CreateStoreResolver } from './use-cases/create-store/create-store.resolver';
@@ -27,7 +27,7 @@ import { VerifyDataLinkedToAUser } from './utils/verify-data-linked-to-a-user';
   providers: [
     CreateSlug,
     VerifyDataLinkedToAUser,
-    StoreRepository,
+    StoresRepository,
     AuthenticateStoreResolver,
     AuthenticateStoreService,
     CreateStoreResolver,
@@ -41,6 +41,6 @@ import { VerifyDataLinkedToAUser } from './utils/verify-data-linked-to-a-user';
     FindStoresByNameResolver,
     FindStoresByNameService,
   ],
-  exports: [StoreRepository, FindStoreService],
+  exports: [StoresRepository, FindStoreService],
 })
 export class StoreModule {}

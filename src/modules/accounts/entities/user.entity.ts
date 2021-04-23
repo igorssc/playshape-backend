@@ -3,7 +3,7 @@ import { Prop, Schema as SchemaType, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { Address } from '../../../common/entities/address.entity';
-import { ProfilePicture } from '../../../common/entities/profile-picture.entity';
+import { Picture } from '../../../common/entities/picture.entity';
 import { ActionsUser } from '../../../enuns/actions-user.enum';
 import { StatusUser } from '../../../enuns/status-user.enum';
 
@@ -37,7 +37,7 @@ export class User {
 
   @Prop()
   @Field({ nullable: true })
-  profile_picture: ProfilePicture;
+  profile_picture: Picture;
 
   @Prop()
   password: string;

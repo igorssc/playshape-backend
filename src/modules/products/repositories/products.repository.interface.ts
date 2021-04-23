@@ -8,4 +8,11 @@ export interface IProductsRepository {
     page: number,
     limit: number,
   ): Promise<PaginateResult<ProductDocument>>;
+  findById(_id: string): Promise<Product>;
+  findByName(
+    name: string,
+    page: number,
+    limit: number,
+  ): Promise<PaginateResult<ProductDocument>>;
+  update(_id: string, data: any): Promise<Product>;
 }

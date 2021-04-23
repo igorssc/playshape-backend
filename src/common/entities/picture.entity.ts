@@ -3,7 +3,7 @@ import { Prop, Schema as SchemaType } from '@nestjs/mongoose';
 
 @SchemaType()
 @ObjectType()
-export class ProfilePicture {
+export class Picture {
   @Prop()
   @Field()
   url: string;

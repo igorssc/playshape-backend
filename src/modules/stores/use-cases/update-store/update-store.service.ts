@@ -4,13 +4,13 @@ import { cnpj as validarCnpj, cpf as validarCpf } from 'cpf-cnpj-validator';
 import { uploadFile } from '../../../../config/upload';
 import { deleteFile } from '../../../../storage/delete';
 import { UpdateStoreInput } from '../../inputs/update-store.input';
-import { StoreRepository } from '../../repositories/implementations/store.repository';
+import { StoresRepository } from '../../repositories/implementations/stores.repository';
 import { VerifyDataLinkedToAUser } from '../../utils/verify-data-linked-to-a-user';
 
 @Injectable()
 export class UpdateStoreService {
   constructor(
-    private readonly storeRepository: StoreRepository,
+    private readonly storesRepository: StoresRepository,
     private readonly verifyDataLinkedToAUser: VerifyDataLinkedToAUser,
   ) {}
 
@@ -25,7 +25,7 @@ export class UpdateStoreService {
         );
       }
 
-      const storeAlreadyExists = await this.storeRepository.findByCpf(
+      const storeAlreadyExists = await this.storesRepository.findByCpf(
         store.cpf,
       );
 
@@ -48,7 +48,7 @@ export class UpdateStoreService {
         );
       }
 
-      const storeAlreadyExists = await this.storeRepository.findByCnpj(
+      const storeAlreadyExists = await this.storesRepository.findByCnpj(
         store.cnpj,
       );
 
@@ -60,7 +60,7 @@ export class UpdateStoreService {
     }
 
     if (store._id) {
-      const storeExists = await this.storeRepository.findById(store._id);
+      const storeExists = await this.storesRepository.findById(store._id);
 
       if (!storeExists) {
         throw new HttpException('User does not exists', HttpStatus.NOT_FOUND);
@@ -70,7 +70,7 @@ export class UpdateStoreService {
     }
 
     if (store.slug) {
-      const storeExists = await this.storeRepository.findBySlug(store.slug);
+      const storeExists = await this.storesRepository.findBySlug(store.slug);
 
       if (!storeExists) {
         throw new HttpException('Slug already exists', HttpStatus.NOT_FOUND);
@@ -80,7 +80,7 @@ export class UpdateStoreService {
     if (store.email) {
       store.email = store.email.toLowerCase();
 
-      const storeAlreadyExists = await this.storeRepository.findByEmail(
+      const storeAlreadyExists = await this.storesRepository.findByEmail(
         store.email,
       );
 
@@ -92,7 +92,7 @@ export class UpdateStoreService {
     }
 
     if (store.profile_picture) {
-      const currentUser = await this.storeRepository.findById(storeId);
+      const currentUser = await this.storesRepository.findById(storeId);
 
       const picture = await store.profile_picture;
 
@@ -101,7 +101,7 @@ export class UpdateStoreService {
         await deleteFile(currentUser.profile_picture.filename);
       }
 
-      (store as any).profile_picture = path;
+      Object.assign(store, { profile_picture: path });
     }
 
     if (store.password) {
@@ -112,7 +112,7 @@ export class UpdateStoreService {
 
     Object.assign(store, { updated_at: new Date() });
 
-    const updatedStore = await this.storeRepository.update(storeId, store);
+    const updatedStore = await this.storesRepository.update(storeId, store);
 
     return updatedStore;
   }

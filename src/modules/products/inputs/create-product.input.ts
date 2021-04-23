@@ -1,22 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-
-@InputType()
-class CreateProductVariantInput {
-  @Field()
-  size: string;
-
-  @Field()
-  flavor: string;
-
-  @Field()
-  price: number;
-
-  @Field({ nullable: true })
-  promotion: number;
-
-  @Field()
-  quantity: number;
-}
+import { CreateVariantInput } from './create-variant.input';
 
 @InputType()
 export class CreateProductInput {
@@ -30,8 +13,8 @@ export class CreateProductInput {
   category: string;
 
   @Field()
-  story: string;
+  store: string;
 
-  @Field(() => [CreateProductVariantInput])
-  variants: CreateProductVariantInput[];
+  @Field(() => [CreateVariantInput])
+  variants: CreateVariantInput[];
 }

@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { validateObjectId } from '../../../../utils/validate-objectid';
 import { UpdateCategoryInput } from '../../inputs/update-category.input';
 import { CategoriesRepository } from '../../repositories/implementations/categories.repository';
 
@@ -7,6 +8,8 @@ export class UpdateCategoryService {
   constructor(private readonly categoriesRepository: CategoriesRepository) {}
 
   async execute(category: UpdateCategoryInput) {
+    validateObjectId(category._id);
+
     const categoryExists = await this.categoriesRepository.findById(
       category._id,
     );

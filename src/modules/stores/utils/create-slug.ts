@@ -1,15 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { createSlug } from '../../../utils/create-slug';
 import { FindStoreInput } from '../inputs/find-store.input';
-import { StoreRepository } from '../repositories/implementations/store.repository';
 import { FindStoreService } from '../use-cases/find-store/find-store.service';
 
 @Injectable()
 export class CreateSlug {
-  constructor(
-    private storeRepository: StoreRepository,
-    private findStoreService: FindStoreService,
-  ) {}
+  constructor(private findStoreService: FindStoreService) {}
 
   async create(name: string) {
     const initialSlug = createSlug(name);

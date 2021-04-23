@@ -1,5 +1,8 @@
-import { ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { ProductDTO } from './product.dto';
 
 @ObjectType()
-export class CreateProductDTO extends ProductDTO {}
+export default class CreateProductDTO {
+  @Field(() => ProductDTO)
+  product: ProductDTO;
+}

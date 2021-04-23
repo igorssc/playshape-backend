@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CaslAbilityFactory } from '../../casl/casl-ability.factory';
+import { CaslAbilityFactory } from '../../casl/implementations/casl-ability.factory';
 import { StoreModule } from '../stores/store.module';
 import { User, UserSchema } from './entities/user.entity';
 import { UsersRepository } from './repositories/implementations/users.repository';

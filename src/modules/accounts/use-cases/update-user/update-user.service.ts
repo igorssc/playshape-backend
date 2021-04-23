@@ -69,7 +69,7 @@ export class UpdateUserService {
         await deleteFile(currentUser.profile_picture.filename);
       }
 
-      (user as any).profile_picture = path;
+      Object.assign(user, { profile_picture: path });
     }
 
     if (user.password) {

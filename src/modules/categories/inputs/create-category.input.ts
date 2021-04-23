@@ -5,6 +5,6 @@ export class CreateCategoryInput {
   @Field()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   description: string;
 }

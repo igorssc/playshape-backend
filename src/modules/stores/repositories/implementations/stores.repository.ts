@@ -3,14 +3,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId, PaginateModel, PaginateResult } from 'mongoose';
 import { Store, StoreDocument } from '../../entities/store.entity';
 import { CreateStoreInput } from '../../inputs/create-store.input';
-import { IStoreRepository } from '../store.repository.interface';
+import { IStoresRepository } from '../stores.repository.interface';
 
 interface createStoreProps extends CreateStoreInput {
   slug: string;
 }
 
 @Injectable()
-export class StoreRepository implements IStoreRepository {
+export class StoresRepository implements IStoresRepository {
   constructor(
     @InjectModel(Store.name)
     private storeModel: Model<StoreDocument>,

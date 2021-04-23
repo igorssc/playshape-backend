@@ -2,7 +2,7 @@ import { ObjectId, PaginateResult } from 'mongoose';
 import { Store, StoreDocument } from '../entities/store.entity';
 import { CreateStoreInput } from '../inputs/create-store.input';
 
-export interface IStoreRepository {
+export interface IStoresRepository {
   create(store: CreateStoreInput): Promise<Store>;
   findById(id: string): Promise<Store>;
   findByEmail(email: string): Promise<Store>;

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { CaslAbilityFactory } from '../../../../casl/casl-ability.factory';
+import { CaslAbilityFactory } from '../../../../casl/implementations/casl-ability.factory';
 import { GetIdByToken } from '../../../../decorators/get-id-by-token.decorator';
 import { ActionsUser } from '../../../../enuns/actions-user.enum';
 import { AuthenticateGuard } from '../../../../guards/authenticate-user.guard';
@@ -32,8 +32,6 @@ export class FindUserResolver {
     );
 
     const wantedUser = Object.assign(new User(), { _id: searchWantedUser._id });
-
-    console.log(wantedUser);
 
     const ability = this.caslAbilityFactory.checkPermission(
       currentUser as User,
