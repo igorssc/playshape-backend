@@ -10,7 +10,10 @@ export class CreateProductInput {
   description: string;
 
   @Field()
-  category: string;
+  category: string[];
+
+  @Field()
+  brand: string;
 
   @Field()
   store: string;

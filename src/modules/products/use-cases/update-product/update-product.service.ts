@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { uploadFile } from '../../../../config/upload';
 import { deleteFile } from '../../../../storage/delete';
+import { validateObjectId } from '../../../../utils/validations/validate-objectid';
+import { FindCategoryInput } from '../../../categories/inputs/find-category.input';
+import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.resolver';
 import { UpdateProductInput } from '../../inputs/update-product.input';
 import { ProductsRepository } from '../../repositories/implementations/products.repository';
 import { VariantsRepository } from '../../repositories/implementations/variants.repository';
@@ -12,6 +15,7 @@ export class UpdateProductService {
     private readonly productsRepository: ProductsRepository,
     private readonly variantsRepository: VariantsRepository,
     private findProductService: FindProductService,
+    private findCategoryService: FindCategoryService,
   ) {}
 
   async execute(product: UpdateProductInput) {
@@ -58,6 +62,18 @@ export class UpdateProductService {
       delete product.variants;
 
       Object.assign(product, { updated_at: new Date() });
+
+      if (product.category) {
+        await Promise.all(
+          product.category.map(async (_id) => {
+            validateObjectId(_id, 'Incorrect category id entered');
+
+            await this.findCategoryService.execute({
+              _id,
+            } as FindCategoryInput);
+          }),
+        );
+      }
 
       await this.productsRepository.update(product._id, product);
     }

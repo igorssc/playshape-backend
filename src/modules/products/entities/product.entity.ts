@@ -22,9 +22,13 @@ export class Product {
   @Field()
   description: string;
 
-  @Prop({ ref: 'categories' })
-  @Field(() => CategoryDTO)
-  category: Schema.Types.ObjectId;
+  @Prop()
+  @Field(() => [CategoryDTO])
+  category: Schema.Types.ObjectId[];
+
+  @Prop()
+  @Field()
+  brand: string;
 
   @Prop({ ref: 'stores' })
   @Field(() => StoreDTO)

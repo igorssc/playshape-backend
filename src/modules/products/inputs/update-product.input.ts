@@ -38,7 +38,10 @@ export class UpdateProductInput {
   description: string;
 
   @Field({ nullable: true })
-  category: string;
+  category: string[];
+
+  @Field({ nullable: true })
+  brand: string;
 
   @Field(() => [UpdateProductVariantInput], { nullable: true })
   variants: UpdateProductVariantInput[];

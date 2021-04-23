@@ -20,15 +20,20 @@ export class CreateProductService {
 
   async execute(product: CreateProductInput) {
     validateObjectId(product.store, 'Incorrect store id entered');
-    validateObjectId(product.category, 'Incorrect category id entered');
 
     await this.findStoreService.execute({
       _id: product.store,
     } as FindStoreInput);
 
-    await this.findCategoryService.execute({
-      _id: product.category,
-    } as FindCategoryInput);
+    await Promise.all(
+      product.category.map(async (_id) => {
+        validateObjectId(_id, 'Incorrect category id entered');
+
+        await this.findCategoryService.execute({
+          _id,
+        } as FindCategoryInput);
+      }),
+    );
 
     const variants = product.variants;
     delete product.variants;
