@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { validateObjectId } from '../../../../utils/validate-objectid';
+import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindCategoryInput } from '../../inputs/find-category.input';
 import { CategoriesRepository } from '../../repositories/implementations/categories.repository';
 

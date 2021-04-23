@@ -1540,6 +1540,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/aws-sdk@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@types/aws-sdk/-/aws-sdk-2.7.0.tgz#83588b3d14ebdca1d4ce5e023387577568ce82f3"
+  integrity sha1-g1iLPRTr3KHUzl4CM4dXdWjOgvM=
+  dependencies:
+    aws-sdk "*"
+
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
   version "7.1.14"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.14.tgz#faaeefc4185ec71c389f4501ee5ec84b170cc402"
@@ -2698,6 +2705,21 @@ awaitify-stream@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/awaitify-stream/-/awaitify-stream-1.0.2.tgz#349c905620f9341be948a8033ee7a29034d3a46a"
   integrity sha512-JE6mrRIPxhBQWt9Mu4u2XJF9V9xp4p5+Uxif/Ol/s2TFC/9+offUE50j/KQdaVWwMyGlKrlsE7Ncq/yhc6AJ+w==
+
+aws-sdk@*:
+  version "2.891.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.891.0.tgz#02cc2cc6adb94e0d471a5be6dd5668d0c5aacd9e"
+  integrity sha512-st6bKbmA1iWyAz9Fn7CHHNVk/6d51aemPBNpg5sK0kkOSYEob/pCAVSLiN1tGVX6qvjtD41ljeeJDQ3pwRTJfA==
+  dependencies:
+    buffer "4.9.2"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
 
 aws-sdk@^2.878.0:
   version "2.878.0"

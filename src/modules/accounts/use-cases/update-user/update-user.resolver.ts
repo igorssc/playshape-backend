@@ -5,7 +5,7 @@ import { CaslAbilityFactory } from '../../../../casl/implementations/casl-abilit
 import { GetIdByToken } from '../../../../decorators/get-id-by-token.decorator';
 import { ActionsUser } from '../../../../enuns/actions-user.enum';
 import { AuthenticateGuard } from '../../../../guards/authenticate-user.guard';
-import { validateObjectId } from '../../../../utils/validate-objectid';
+import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { UpdateUserDTO } from '../../dtos/update-user.dto';
 import { User } from '../../entities/user.entity';
 import { FindUserInput } from '../../inputs/find-user.input';

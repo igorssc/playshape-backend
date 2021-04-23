@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { uploadFile } from '../../../../config/upload';
-import { validateObjectId } from '../../../../utils/validate-objectid';
+import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindCategoryInput } from '../../../categories/inputs/find-category.input';
 import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.resolver';
 import { FindStoreInput } from '../../../stores/inputs/find-store.input';

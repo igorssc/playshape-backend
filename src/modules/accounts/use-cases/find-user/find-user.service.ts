@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { validateObjectId } from '../../../../utils/validate-objectid';
+import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindUserDTO } from '../../dtos/find-user.dto';
 import { FindUserInput } from '../../inputs/find-user.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';

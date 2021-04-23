@@ -5,9 +5,9 @@ import { FileUpload } from 'graphql-upload';
 import mkdirp from 'mkdirp';
 import { resolve } from 'path';
 import { handleFileData } from '../storage/upload';
-import compressPicture from '../utils/compress-picture';
-import generateName from '../utils/generate-name';
-import validate from '../utils/validate-file';
+import generateName from '../utils/random/generate-name';
+import compressPicture from '../utils/sharp/compress-picture';
+import validate from '../utils/validations/validate-file';
 
 interface IUploadFile {
   url: string;

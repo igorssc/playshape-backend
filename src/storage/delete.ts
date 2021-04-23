@@ -10,7 +10,7 @@ let deleteToS3 = async (fileName: string) => {
 
 const deleteFile = async (fileName: string) => {
   try {
-    let res = await deleteToS3(fileName);
+    await deleteToS3(fileName);
   } catch (err) {
     throw err;
   }

@@ -2,7 +2,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { GetIdByToken } from '../../../../decorators/get-id-by-token.decorator';
 import { ActionsUser } from '../../../../enuns/actions-user.enum';
-import { validateObjectId } from '../../../../utils/validate-objectid';
+import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindUserInput } from '../../../accounts/inputs/find-user.input';
 import { FindUserService } from '../../../accounts/use-cases/find-user/find-user.service';
 import { UpdateStoreDTO } from '../../dtos/update-store.dto';
