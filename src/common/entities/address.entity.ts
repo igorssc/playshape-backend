@@ -21,5 +21,11 @@ export class Address {
   state: string;
   @Prop()
   @Field({ nullable: true })
+  lat: string;
+  @Prop()
+  @Field({ nullable: true })
+  lng: string;
+  @Prop()
+  @Field({ nullable: true })
   zipCode: string;
 }

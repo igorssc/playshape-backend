@@ -19,4 +19,10 @@ export class AddressInput {
 
   @Field({ nullable: true })
   zipCode: string;
+
+  @Field({ nullable: true })
+  lat: string;
+
+  @Field({ nullable: true })
+  lng: string;
 }
