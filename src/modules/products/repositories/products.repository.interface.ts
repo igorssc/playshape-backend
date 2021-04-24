@@ -14,5 +14,10 @@ export interface IProductsRepository {
     page: number,
     limit: number,
   ): Promise<PaginateResult<ProductDocument>>;
+  findByStoreId(
+    store: string,
+    page: number,
+    limit: number,
+  ): Promise<PaginateResult<ProductDocument>>;
   update(_id: string, data: any): Promise<Product>;
 }

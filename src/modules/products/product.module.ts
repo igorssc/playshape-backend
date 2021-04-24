@@ -15,6 +15,8 @@ import { FindProductResolver } from './use-cases/find-product/find-product.resol
 import { FindProductService } from './use-cases/find-product/find-product.service';
 import { FindProductsByNameResolver } from './use-cases/find-products-by-name/find-products-by-name.resolver';
 import { FindProductsByNameService } from './use-cases/find-products-by-name/find-products-by-name.service';
+import { FindProductsByStoreIdResolver } from './use-cases/find-products-by-store/find-products-by-store-id.resolver';
+import { FindProductsByStoreIdService } from './use-cases/find-products-by-store/find-products-by-store-id.service';
 import { FindVariantResolver } from './use-cases/find-variant/find-variant.resolver';
 import { FindVariantService } from './use-cases/find-variant/find-variant.service';
 import { ListProductsResolver } from './use-cases/list-products/list-products.resolver';
@@ -50,6 +52,8 @@ import { UpdateProductService } from './use-cases/update-product/update-product.
     UpdateProductService,
     CreateVariantResolver,
     CreateVariantService,
+    FindProductsByStoreIdResolver,
+    FindProductsByStoreIdService,
   ],
 })
 export class ProductModule {}

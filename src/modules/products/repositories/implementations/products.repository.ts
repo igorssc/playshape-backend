@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, PaginateModel, PaginateResult } from 'mongoose';
+import { Model, ObjectId, PaginateModel, PaginateResult } from 'mongoose';
 import { StatusProduct } from '../../../../enuns/status-product';
 import { Category } from '../../../categories/entities/category.schema';
 import { Store } from '../../../stores/entities/store.entity';
@@ -66,6 +66,29 @@ export class ProductsRepository implements IProductsRepository {
       {
         name: { $regex: name, $options: 'i' },
         status: { $ne: StatusProduct.Removed },
+      },
+      {
+        page,
+        limit,
+        populate: [
+          { path: 'category', model: Category },
+          { path: 'store', model: Store },
+        ],
+      },
+    );
+
+    return products;
+  }
+
+  async findByStoreId(
+    store: string,
+    page: number,
+    limit: number,
+  ): Promise<PaginateResult<ProductDocument>> {
+    const products = await (this
+      .productModel as PaginateModel<ProductDocument>).paginate(
+      {
+        store: (store as unknown) as ObjectId,
       },
       {
         page,

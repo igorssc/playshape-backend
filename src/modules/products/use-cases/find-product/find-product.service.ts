@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindProductInput } from '../../inputs/find-product.input';
 import { ProductsRepository } from '../../repositories/implementations/products.repository';
 import { VariantsRepository } from '../../repositories/implementations/variants.repository';
@@ -11,6 +12,8 @@ export class FindProductService {
   ) {}
 
   async execute(product: FindProductInput) {
+    validateObjectId(product._id);
+
     const findProduct = await this.productsRepository.findById(product._id);
 
     if (!findProduct) {
