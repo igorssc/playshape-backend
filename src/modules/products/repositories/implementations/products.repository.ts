@@ -56,6 +56,17 @@ export class ProductsRepository implements IProductsRepository {
     return product[0];
   }
 
+  async findBySlug(slug: string): Promise<Product> {
+    const product = await this.productModel
+      .find({ slug, status: { $ne: StatusProduct.Removed } })
+      .populate([
+        { path: 'category', model: Category },
+        { path: 'store', model: Store },
+      ]);
+
+    return product[0];
+  }
+
   async findByName(
     name: string,
     page: number,

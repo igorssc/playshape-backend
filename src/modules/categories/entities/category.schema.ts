@@ -24,6 +24,10 @@ export class Category {
   @Field()
   status: StatusCategory.Active;
 
+  @Prop({ unique: true })
+  @Field()
+  slug: string;
+
   @Prop({ default: new Date() })
   @Field()
   updated_at: Date;

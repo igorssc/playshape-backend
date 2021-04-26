@@ -7,6 +7,7 @@ import { FindCategoryService } from '../../../categories/use-cases/find-category
 import { UpdateProductInput } from '../../inputs/update-product.input';
 import { ProductsRepository } from '../../repositories/implementations/products.repository';
 import { VariantsRepository } from '../../repositories/implementations/variants.repository';
+import { CreateProductSlug } from '../../utils/create-slug';
 import { FindProductService } from '../find-product/find-product.service';
 
 @Injectable()
@@ -16,6 +17,7 @@ export class UpdateProductService {
     private readonly variantsRepository: VariantsRepository,
     private findProductService: FindProductService,
     private findCategoryService: FindCategoryService,
+    private readonly createSlug: CreateProductSlug,
   ) {}
 
   async execute(product: UpdateProductInput) {
@@ -74,6 +76,11 @@ export class UpdateProductService {
           }),
         );
       }
+
+      product.name &&
+        Object.assign(product, {
+          slug: await this.createSlug.create(product.name),
+        });
 
       await this.productsRepository.update(product._id, product);
     }

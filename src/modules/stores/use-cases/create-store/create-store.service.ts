@@ -3,14 +3,14 @@ import { hash } from 'bcrypt';
 import { CreateStoreDTO } from '../../dtos/create-store.dto';
 import { CreateStoreInput } from '../../inputs/create-store.input';
 import { StoresRepository } from '../../repositories/implementations/stores.repository';
-import { CreateSlug } from '../../utils/create-slug';
+import { CreateStoreSlug } from '../../utils/create-slug';
 import { VerifyDataLinkedToAUser } from '../../utils/verify-data-linked-to-a-user';
 
 @Injectable()
 export class CreateStoreService {
   constructor(
     private readonly storesRepository: StoresRepository,
-    private readonly createSlug: CreateSlug,
+    private readonly createSlug: CreateStoreSlug,
     private readonly verifyDataLinkedToAUser: VerifyDataLinkedToAUser,
   ) {}
 

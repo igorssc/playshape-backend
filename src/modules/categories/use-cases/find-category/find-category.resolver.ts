@@ -10,13 +10,6 @@ export class FindCategoryService {
   async execute(input: FindCategoryInput) {
     const args = Object.keys(input).length;
 
-    if (args === 0) {
-      throw new HttpException(
-        'No search parameter entered',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
     if (args > 1) {
       throw new HttpException(
         'More than one search parameter entered',
@@ -24,14 +17,14 @@ export class FindCategoryService {
       );
     }
 
-    if (input._id) {
-      validateObjectId(input._id);
-    }
+    input._id && validateObjectId(input._id);
 
     const findCategory = input._id
       ? await this.categoriesRepository.findById(input._id)
       : input.name
       ? await this.categoriesRepository.findByName(input.name)
+      : input.slug
+      ? await this.categoriesRepository.findBySlug(input.slug)
       : undefined;
 
     if (!findCategory) {

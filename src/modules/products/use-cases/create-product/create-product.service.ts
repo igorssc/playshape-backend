@@ -8,6 +8,7 @@ import { FindStoreService } from '../../../stores/use-cases/find-store/find-stor
 import { CreateProductInput } from '../../inputs/create-product.input';
 import { ProductsRepository } from '../../repositories/implementations/products.repository';
 import { VariantsRepository } from '../../repositories/implementations/variants.repository';
+import { CreateProductSlug } from '../../utils/create-slug';
 
 @Injectable()
 export class CreateProductService {
@@ -16,6 +17,7 @@ export class CreateProductService {
     private readonly variantsRepository: VariantsRepository,
     private readonly findStoreService: FindStoreService,
     private readonly findCategoryService: FindCategoryService,
+    private readonly createSlug: CreateProductSlug,
   ) {}
 
   async execute(product: CreateProductInput) {
@@ -38,7 +40,12 @@ export class CreateProductService {
     const variants = product.variants;
     delete product.variants;
 
-    const createProduct = await this.productsRepository.create(product);
+    const slug = await this.createSlug.create(product.name);
+
+    const createProduct = await this.productsRepository.create({
+      ...product,
+      slug,
+    } as CreateProductInput);
 
     const createVariants = variants.map(async (variant) => {
       const picture = await variant.picture;

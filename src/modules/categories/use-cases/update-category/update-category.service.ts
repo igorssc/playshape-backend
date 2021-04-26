@@ -2,10 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { UpdateCategoryInput } from '../../inputs/update-category.input';
 import { CategoriesRepository } from '../../repositories/implementations/categories.repository';
+import { CreateCategorySlug } from '../../utils/create-slug';
 
 @Injectable()
 export class UpdateCategoryService {
-  constructor(private readonly categoriesRepository: CategoriesRepository) {}
+  constructor(
+    private readonly categoriesRepository: CategoriesRepository,
+    private readonly createSlug: CreateCategorySlug,
+  ) {}
 
   async execute(category: UpdateCategoryInput) {
     validateObjectId(category._id);
@@ -30,6 +34,11 @@ export class UpdateCategoryService {
         throw new HttpException('Category already exists', HttpStatus.CONFLICT);
       }
     }
+
+    category.name &&
+      Object.assign(category, {
+        slug: await this.createSlug.create(category.name),
+      });
 
     Object.assign(category, { updated_at: new Date() });
 

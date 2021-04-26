@@ -9,6 +9,7 @@ export interface ICategoriesRepository {
     limit: number,
   ): Promise<PaginateResult<CategoryDocument>>;
   findById(id: string): Promise<Category>;
+  findBySlug(slug: string): Promise<Category>;
   findByName(name: string): Promise<Category>;
   update(id: string, data: any): Promise<Category>;
 }

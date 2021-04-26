@@ -11,10 +11,23 @@ export class FindProductService {
     private readonly variantsRepository: VariantsRepository,
   ) {}
 
-  async execute(product: FindProductInput) {
-    validateObjectId(product._id);
+  async execute(input: FindProductInput) {
+    const args = Object.keys(input).length;
 
-    const findProduct = await this.productsRepository.findById(product._id);
+    if (args > 1) {
+      throw new HttpException(
+        'More than one search parameter entered',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    input._id && validateObjectId(input._id);
+
+    const findProduct = input._id
+      ? await this.productsRepository.findById(input._id)
+      : input.slug
+      ? await this.productsRepository.findBySlug(input.slug)
+      : undefined;
 
     if (!findProduct) {
       throw new HttpException('Product does not exists', HttpStatus.NOT_FOUND);

@@ -30,6 +30,10 @@ export class Product {
   @Field()
   brand: string;
 
+  @Prop({ unique: true })
+  @Field()
+  slug: string;
+
   @Prop({ ref: 'stores' })
   @Field(() => StoreDTO)
   store: Schema.Types.ObjectId;

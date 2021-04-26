@@ -29,7 +29,7 @@ export class UpdateProductResolver {
     let productId: string;
     let storeId: string;
 
-    if (input.variants.length > 0) {
+    if (input?.variants?.length > 0) {
       const variantArray = input.variants.map(async (variant) => {
         return await this.findVariantService.execute({ _id: variant._id });
       });

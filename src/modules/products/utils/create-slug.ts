@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { createSlug } from '../../../utils/create-slug';
-import { FindStoreInput } from '../inputs/find-store.input';
-import { FindStoreService } from '../use-cases/find-store/find-store.service';
+import { FindProductInput } from '../inputs/find-product.input';
+import { FindProductService } from '../use-cases/find-product/find-product.service';
 
 @Injectable()
-export class CreateStoreSlug {
-  constructor(private findStoreService: FindStoreService) {}
+export class CreateProductSlug {
+  constructor(private findProductService: FindProductService) {}
 
   async create(name: string) {
     const initialSlug = createSlug(name);
@@ -15,9 +15,9 @@ export class CreateStoreSlug {
 
     while (!slug) {
       try {
-        await this.findStoreService.execute({
+        await this.findProductService.execute({
           slug: initialSlug + (incrementSlug === 0 ? '' : '-' + incrementSlug),
-        } as FindStoreInput);
+        } as FindProductInput);
 
         ++incrementSlug;
       } catch {

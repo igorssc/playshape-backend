@@ -15,7 +15,7 @@ import { ListStoresResolver } from './use-cases/list-stores/list-stores.resolver
 import { ListStoresService } from './use-cases/list-stores/list-stores.service';
 import { UpdateStoreResolver } from './use-cases/update-store/update-store.resolver';
 import { UpdateStoreService } from './use-cases/update-store/update-store.service';
-import { CreateSlug } from './utils/create-slug';
+import { CreateStoreSlug } from './utils/create-slug';
 import { VerifyDataLinkedToAUser } from './utils/verify-data-linked-to-a-user';
 
 @Module({
@@ -25,7 +25,7 @@ import { VerifyDataLinkedToAUser } from './utils/verify-data-linked-to-a-user';
   ],
   controllers: [],
   providers: [
-    CreateSlug,
+    CreateStoreSlug,
     VerifyDataLinkedToAUser,
     StoresRepository,
     AuthenticateStoreResolver,

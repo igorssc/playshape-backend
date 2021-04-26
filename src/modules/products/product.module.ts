@@ -21,6 +21,7 @@ import { ListProductsResolver } from './use-cases/list-products/list-products.re
 import { ListProductsService } from './use-cases/list-products/list-products.service';
 import { UpdateProductResolver } from './use-cases/update-product/update-product.resolver';
 import { UpdateProductService } from './use-cases/update-product/update-product.service';
+import { CreateProductSlug } from './utils/create-slug';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UpdateProductService } from './use-cases/update-product/update-product.
   ],
   controllers: [],
   providers: [
+    CreateProductSlug,
     ProductsRepository,
     VariantsRepository,
     CreateProductResolver,

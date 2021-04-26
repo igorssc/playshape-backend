@@ -11,6 +11,7 @@ import { ListCategoriesResolver } from './use-cases/list-categories/list-categor
 import { ListCategoriesService } from './use-cases/list-categories/list-categories.service';
 import { UpdateCategoryResolver } from './use-cases/update-category/update-category.resolver';
 import { UpdateCategoryService } from './use-cases/update-category/update-category.service';
+import { CreateCategorySlug } from './utils/create-slug';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UpdateCategoryService } from './use-cases/update-category/update-catego
   ],
   controllers: [],
   providers: [
+    CreateCategorySlug,
     CategoriesRepository,
     CreateCategoryResolver,
     CreateCategoriesService,

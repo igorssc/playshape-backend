@@ -41,6 +41,12 @@ export class CategoriesRepository implements ICategoriesRepository {
     return category;
   }
 
+  async findBySlug(slug: string): Promise<Category> {
+    const category = await this.categoryModel.findOne({ slug });
+
+    return category;
+  }
+
   async findByName(name: string): Promise<Category> {
     const category = await this.categoryModel.findOne({ name: name });
 
