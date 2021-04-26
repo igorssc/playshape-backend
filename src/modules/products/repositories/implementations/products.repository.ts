@@ -103,6 +103,29 @@ export class ProductsRepository implements IProductsRepository {
     return products;
   }
 
+  async findByCategoryId(
+    category: string,
+    page: number,
+    limit: number,
+  ): Promise<PaginateResult<ProductDocument>> {
+    const products = await (this
+      .productModel as PaginateModel<ProductDocument>).paginate(
+      {
+        category: { $in: [category] },
+      },
+      {
+        page,
+        limit,
+        populate: [
+          { path: 'category', model: Category },
+          { path: 'store', model: Store },
+        ],
+      },
+    );
+
+    return products;
+  }
+
   async update(_id: string, data: any): Promise<Product> {
     const product = await this.productModel.findOneAndUpdate({ _id }, data, {
       new: true,

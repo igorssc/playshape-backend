@@ -13,10 +13,8 @@ import { CreateVariantResolver } from './use-cases/create-variant/create-variant
 import { CreateVariantService } from './use-cases/create-variant/create-variant.service';
 import { FindProductResolver } from './use-cases/find-product/find-product.resolver';
 import { FindProductService } from './use-cases/find-product/find-product.service';
-import { FindProductsByNameResolver } from './use-cases/find-products-by-name/find-products-by-name.resolver';
-import { FindProductsByNameService } from './use-cases/find-products-by-name/find-products-by-name.service';
-import { FindProductsByStoreIdResolver } from './use-cases/find-products-by-store/find-products-by-store-id.resolver';
-import { FindProductsByStoreIdService } from './use-cases/find-products-by-store/find-products-by-store-id.service';
+import { FindProductsService } from './use-cases/find-products/find-producs.service';
+import { FindProductsResolver } from './use-cases/find-products/find-products.resolver';
 import { FindVariantResolver } from './use-cases/find-variant/find-variant.resolver';
 import { FindVariantService } from './use-cases/find-variant/find-variant.service';
 import { ListProductsResolver } from './use-cases/list-products/list-products.resolver';
@@ -42,8 +40,6 @@ import { UpdateProductService } from './use-cases/update-product/update-product.
     CreateProductService,
     FindProductResolver,
     FindProductService,
-    FindProductsByNameResolver,
-    FindProductsByNameService,
     FindVariantResolver,
     FindVariantService,
     ListProductsResolver,
@@ -52,8 +48,8 @@ import { UpdateProductService } from './use-cases/update-product/update-product.
     UpdateProductService,
     CreateVariantResolver,
     CreateVariantService,
-    FindProductsByStoreIdResolver,
-    FindProductsByStoreIdService,
+    FindProductsResolver,
+    FindProductsService,
   ],
 })
 export class ProductModule {}
