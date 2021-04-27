@@ -17,6 +17,7 @@ export class FindProductTypeCategory {
   @Field({ nullable: true })
   slug: string;
 }
+
 @InputType()
 export class FindProductTypeProduct {
   @Field({ nullable: true })
