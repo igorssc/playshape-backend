@@ -13,6 +13,8 @@ import { CreateVariantResolver } from './use-cases/create-variant/create-variant
 import { CreateVariantService } from './use-cases/create-variant/create-variant.service';
 import { FindProductResolver } from './use-cases/find-product/find-product.resolver';
 import { FindProductService } from './use-cases/find-product/find-product.service';
+import { FindProductsRelatedResolver } from './use-cases/find-products-related/find-products-related.resolver';
+import { FindProductsRelatedService } from './use-cases/find-products-related/find-products-related.service';
 import { FindProductsResolver } from './use-cases/find-products/find-products.resolver';
 import { FindProductsService } from './use-cases/find-products/find-products.service';
 import { FindVariantResolver } from './use-cases/find-variant/find-variant.resolver';
@@ -52,6 +54,8 @@ import { CreateProductSlug } from './utils/create-slug';
     CreateVariantService,
     FindProductsResolver,
     FindProductsService,
+    FindProductsRelatedResolver,
+    FindProductsRelatedService,
   ],
 })
 export class ProductModule {}

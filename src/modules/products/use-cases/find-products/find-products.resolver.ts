@@ -1,5 +1,5 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { FindProductsByStoreDTO } from '../../dtos/find-products-by-store.dto';
+import { FindProductsDTO } from '../../dtos/find-products.dto';
 import { FindProductsInput } from '../../inputs/find-products.input';
 import { FindProductsService } from './find-products.service';
 
@@ -7,7 +7,7 @@ import { FindProductsService } from './find-products.service';
 export class FindProductsResolver {
   constructor(private findProductsService: FindProductsService) {}
 
-  @Query(() => FindProductsByStoreDTO)
+  @Query(() => FindProductsDTO)
   async findProducts(@Args('input') input: FindProductsInput) {
     const products = await this.findProductsService.execute(input);
 

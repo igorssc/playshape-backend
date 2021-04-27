@@ -137,6 +137,45 @@ export class ProductsRepository implements IProductsRepository {
     return products;
   }
 
+  async findByRelated(
+    currentId: string,
+    relation: {
+      categories: string[];
+      store: string;
+    },
+    page: number,
+    limit: number,
+  ): Promise<PaginateResult<ProductDocument>> {
+    const products = await (this
+      .productModel as PaginateModel<ProductDocument>).paginate(
+      {
+        $and: [
+          { _id: { $ne: currentId } },
+          {
+            $or: [
+              {
+                category: { $in: [relation.categories] },
+              },
+              {
+                store: { $eq: (relation.store as unknown) as ObjectId },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        page,
+        limit,
+        populate: [
+          { path: 'category', model: Category },
+          { path: 'store', model: Store },
+        ],
+      },
+    );
+
+    return products;
+  }
+
   async update(_id: string, data: any): Promise<Product> {
     const product = await this.productModel.findOneAndUpdate({ _id }, data, {
       new: true,

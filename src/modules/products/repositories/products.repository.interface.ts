@@ -24,5 +24,14 @@ export interface IProductsRepository {
     page: number,
     limit: number,
   ): Promise<PaginateResult<ProductDocument>>;
+  findByRelated(
+    currentId: string,
+    relation: {
+      categories: string[];
+      store: string;
+    },
+    page: number,
+    limit: number,
+  ): Promise<PaginateResult<ProductDocument>>;
   update(_id: string, data: any): Promise<Product>;
 }

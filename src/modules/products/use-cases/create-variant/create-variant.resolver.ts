@@ -10,6 +10,7 @@ import { FindStoreService } from '../../../stores/use-cases/find-store/find-stor
 import CreateVariantDTO from '../../dtos/create-variant.dto';
 import { ProductDTO } from '../../dtos/product.dto';
 import { CreateVariantInput } from '../../inputs/create-variant.input';
+import { FindProductInput } from '../../inputs/find-product.input';
 import { FindProductService } from '../find-product/find-product.service';
 import { CreateVariantService } from './create-variant.service';
 
@@ -31,7 +32,7 @@ export class CreateVariantResolver {
 
     const product = await this.findProductService.execute({
       _id: input.product,
-    });
+    } as FindProductInput);
 
     try {
       const currentAccountIsForAStore = await this.findStoreService.execute({

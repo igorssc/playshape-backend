@@ -7,6 +7,7 @@ import { FindUserInput } from '../../../accounts/inputs/find-user.input';
 import { FindUserService } from '../../../accounts/use-cases/find-user/find-user.service';
 import { ProductDTO } from '../../dtos/product.dto';
 import { UpdateProductDTO } from '../../dtos/update-product.dto';
+import { FindProductInput } from '../../inputs/find-product.input';
 import { UpdateProductInput } from '../../inputs/update-product.input';
 import { FindProductService } from '../find-product/find-product.service';
 import { FindVariantService } from '../find-variant/find-variant.service';
@@ -57,7 +58,7 @@ export class UpdateProductResolver {
 
       const findProduct = await this.findProductService.execute({
         _id: input._id,
-      });
+      } as FindProductInput);
 
       if (productId && productId !== String(findProduct._id)) {
         throw new HttpException(
@@ -78,7 +79,7 @@ export class UpdateProductResolver {
 
       const findProduct = await this.findProductService.execute({
         _id: productId,
-      });
+      } as FindProductInput);
 
       storeId = String(((findProduct.store as unknown) as ProductDTO)._id);
     }

@@ -4,6 +4,7 @@ import { deleteFile } from '../../../../storage/delete';
 import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindCategoryInput } from '../../../categories/inputs/find-category.input';
 import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.service';
+import { FindProductInput } from '../../inputs/find-product.input';
 import { UpdateProductInput } from '../../inputs/update-product.input';
 import { ProductsRepository } from '../../repositories/implementations/products.repository';
 import { VariantsRepository } from '../../repositories/implementations/variants.repository';
@@ -87,7 +88,7 @@ export class UpdateProductService {
 
     const findProduct = await this.findProductService.execute({
       _id: product._id ?? productId,
-    });
+    } as FindProductInput);
 
     return findProduct;
   }
