@@ -146,6 +146,8 @@ export class ProductsRepository implements IProductsRepository {
     page: number,
     limit: number,
   ): Promise<PaginateResult<ProductDocument>> {
+    console.log(relation.categories);
+
     const products = await (this
       .productModel as PaginateModel<ProductDocument>).paginate(
       {
@@ -154,7 +156,7 @@ export class ProductsRepository implements IProductsRepository {
           {
             $or: [
               {
-                category: { $in: [relation.categories] },
+                category: { $in: relation.categories },
               },
               {
                 store: { $eq: (relation.store as unknown) as ObjectId },

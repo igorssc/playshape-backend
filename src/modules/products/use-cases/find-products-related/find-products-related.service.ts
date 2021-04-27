@@ -24,7 +24,9 @@ export class FindProductsRelatedService {
     const productsRelated = await this.productsRepository.findByRelated(
       input._id,
       {
-        categories: findProduct.category,
+        categories: (findProduct.category as any).map((category: any) =>
+          String(category._id),
+        ),
         store: String((findProduct.store as any)._id),
       },
       input.page,
