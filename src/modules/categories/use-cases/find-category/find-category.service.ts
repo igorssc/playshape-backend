@@ -1,16 +1,36 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { FindCategoryDTO } from '../../dtos/find-category.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindCategoryInput } from '../../inputs/find-category.input';
-import { FindCategoryService } from './find-category.resolver';
+import { CategoriesRepository } from '../../repositories/implementations/categories.repository';
 
-@Resolver()
-export class FindCategoryResolver {
-  constructor(private findCategoryService: FindCategoryService) {}
+@Injectable()
+export class FindCategoryService {
+  constructor(private readonly categoriesRepository: CategoriesRepository) {}
 
-  @Mutation(() => FindCategoryDTO)
-  async findCategory(@Args('input') input: FindCategoryInput) {
-    const createdCategory = await this.findCategoryService.execute(input);
+  async execute(input: FindCategoryInput) {
+    const args = Object.keys(input).length;
 
-    return createdCategory;
+    if (args > 1) {
+      throw new HttpException(
+        'More than one search parameter entered',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    input._id && validateObjectId(input._id);
+
+    const findCategory = input._id
+      ? await this.categoriesRepository.findById(input._id)
+      : input.name
+      ? await this.categoriesRepository.findByName(input.name)
+      : input.slug
+      ? await this.categoriesRepository.findBySlug(input.slug)
+      : undefined;
+
+    if (!findCategory) {
+      throw new HttpException('Store does not exists', HttpStatus.NOT_FOUND);
+    }
+
+    return findCategory;
   }
 }

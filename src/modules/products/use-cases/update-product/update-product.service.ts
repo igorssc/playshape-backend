@@ -3,7 +3,7 @@ import { uploadFile } from '../../../../config/upload';
 import { deleteFile } from '../../../../storage/delete';
 import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindCategoryInput } from '../../../categories/inputs/find-category.input';
-import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.resolver';
+import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.service';
 import { UpdateProductInput } from '../../inputs/update-product.input';
 import { ProductsRepository } from '../../repositories/implementations/products.repository';
 import { VariantsRepository } from '../../repositories/implementations/variants.repository';

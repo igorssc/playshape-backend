@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { uploadFile } from '../../../../config/upload';
 import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindCategoryInput } from '../../../categories/inputs/find-category.input';
-import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.resolver';
+import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.service';
 import { FindStoreInput } from '../../../stores/inputs/find-store.input';
 import { FindStoreService } from '../../../stores/use-cases/find-store/find-store.service';
 import { CreateProductInput } from '../../inputs/create-product.input';

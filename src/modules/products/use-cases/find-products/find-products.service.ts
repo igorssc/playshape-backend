@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { validateObjectId } from '../../../../utils/validations/validate-objectid';
 import { FindCategoryInput } from '../../../categories/inputs/find-category.input';
-import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.resolver';
+import { FindCategoryService } from '../../../categories/use-cases/find-category/find-category.service';
 import { FindStoreInput } from '../../../stores/inputs/find-store.input';
 import { FindStoreService } from '../../../stores/use-cases/find-store/find-store.service';
 import { FindProductsInput } from '../../inputs/find-products.input';

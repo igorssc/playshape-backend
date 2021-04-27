@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createSlug } from '../../../utils/create-slug';
 import { FindCategoryInput } from '../inputs/find-category.input';
-import { FindCategoryService } from '../use-cases/find-category/find-category.resolver';
+import { FindCategoryService } from '../use-cases/find-category/find-category.service';
 
 @Injectable()
 export class CreateCategorySlug {
