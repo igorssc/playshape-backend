@@ -1,7 +1,7 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { FindProductsByStoreDTO } from '../../dtos/find-products-by-store.dto';
 import { FindProductsInput } from '../../inputs/find-products.input';
-import { FindProductsService } from './find-producs.service';
+import { FindProductsService } from './find-products.service';
 
 @Resolver()
 export class FindProductsResolver {

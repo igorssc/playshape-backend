@@ -1,15 +1,32 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
+export class FindProductTypeStore {
+  @Field({ nullable: true })
+  _id: string;
+
+  @Field({ nullable: true })
+  slug: string;
+}
+
+@InputType()
+export class FindProductTypeCategory {
+  @Field({ nullable: true })
+  _id: string;
+
+  @Field({ nullable: true })
+  slug: string;
+}
+@InputType()
 export class FindProductTypeProduct {
   @Field({ nullable: true })
   name: string;
 
-  @Field({ nullable: true })
-  store: string;
+  @Field(() => FindProductTypeStore, { nullable: true })
+  store: FindProductTypeStore;
 
-  @Field({ nullable: true })
-  category: string;
+  @Field(() => FindProductTypeCategory, { nullable: true })
+  category: FindProductTypeCategory;
 }
 
 @InputType()

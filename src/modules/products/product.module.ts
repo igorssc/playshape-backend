@@ -13,8 +13,8 @@ import { CreateVariantResolver } from './use-cases/create-variant/create-variant
 import { CreateVariantService } from './use-cases/create-variant/create-variant.service';
 import { FindProductResolver } from './use-cases/find-product/find-product.resolver';
 import { FindProductService } from './use-cases/find-product/find-product.service';
-import { FindProductsService } from './use-cases/find-products/find-producs.service';
 import { FindProductsResolver } from './use-cases/find-products/find-products.resolver';
+import { FindProductsService } from './use-cases/find-products/find-products.service';
 import { FindVariantResolver } from './use-cases/find-variant/find-variant.resolver';
 import { FindVariantService } from './use-cases/find-variant/find-variant.service';
 import { ListProductsResolver } from './use-cases/list-products/list-products.resolver';
