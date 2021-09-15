@@ -6,7 +6,7 @@ import { deleteFile } from '../../../../storage/delete';
 import { UpdateUserDTO } from '../../dtos/update-user.dto';
 import { UpdateUserInput } from '../../inputs/update-user.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';
-import { VerifyDataLinkedToAStore } from '../../utils/verify-email-linked-to-a-store';
+import { VerifyDataLinkedToAStore } from '../../utils/verify-data-linked-to-a-store';
 
 @Injectable()
 export class UpdateUserService {
@@ -31,8 +31,6 @@ export class UpdateUserService {
       if (userAlreadyExists && String(userAlreadyExists._id) != userId) {
         throw new HttpException('CPF already exists', HttpStatus.CONFLICT);
       }
-
-      await this.verifyDataLinkedToAStore.verifyCPF(user.cpf);
     }
 
     if (user._id) {

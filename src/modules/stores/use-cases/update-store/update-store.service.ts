@@ -65,7 +65,7 @@ export class UpdateStoreService {
         throw new HttpException('Email already exists', HttpStatus.CONFLICT);
       }
 
-      await this.verifyDataLinkedToAUser.verify(store.email);
+      await this.verifyDataLinkedToAUser.verifyEmail(store.email);
     }
 
     if (store.profile_picture) {

@@ -23,24 +23,6 @@ class VerifyDataLinkedToAStore {
 
     return true;
   }
-
-  async verifyCPF(cpf: string) {
-    try {
-      const cpfAlreadyExists = await this.findStoreService.execute({
-        cpf,
-      } as FindStoreInput);
-
-      if (cpfAlreadyExists) {
-        throw new HttpException('CPF linked to a store', HttpStatus.CONFLICT);
-      }
-    } catch (err) {
-      if (err.status === HttpStatus.CONFLICT) {
-        throw new HttpException(err.message, err.status);
-      }
-    }
-
-    return true;
-  }
 }
 
 export { VerifyDataLinkedToAStore };

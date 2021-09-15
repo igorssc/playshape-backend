@@ -14,7 +14,7 @@ import { ListUsersResolver } from './use-cases/list-users/list-users.resolver';
 import { ListUsersService } from './use-cases/list-users/list-users.service';
 import { UpdateUserResolver } from './use-cases/update-user/update-user.resolver';
 import { UpdateUserService } from './use-cases/update-user/update-user.service';
-import { VerifyDataLinkedToAStore } from './utils/verify-email-linked-to-a-store';
+import { VerifyDataLinkedToAStore } from './utils/verify-data-linked-to-a-store';
 
 @Module({
   imports: [

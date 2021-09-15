@@ -32,8 +32,8 @@ export class FindStoreService {
       ? await this.storesRepository.findById(store._id)
       : store.email
       ? await this.storesRepository.findByEmail(store.email)
-      : store.cpf
-      ? await this.storesRepository.findByCpf(store.cpf)
+      : store.cnpj
+      ? await this.storesRepository.findByCnpj(store.cnpj)
       : store.slug
       ? await this.storesRepository.findBySlug(store.slug)
       : undefined;

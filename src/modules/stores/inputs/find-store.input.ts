@@ -9,7 +9,7 @@ export class FindStoreInput {
   email: string;
 
   @Field({ nullable: true })
-  cpf: string;
+  cnpj: string;
 
   @Field({ nullable: true })
   slug: string;

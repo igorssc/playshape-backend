@@ -3,7 +3,7 @@ import { hash } from 'bcrypt';
 import { CreateUserDTO } from '../../dtos/create-user.dto';
 import { CreateUserInput } from '../../inputs/create-user.input';
 import { UsersRepository } from '../../repositories/implementations/users.repository';
-import { VerifyDataLinkedToAStore } from '../../utils/verify-email-linked-to-a-store';
+import { VerifyDataLinkedToAStore } from '../../utils/verify-data-linked-to-a-store';
 
 @Injectable()
 export class CreateUsersService {

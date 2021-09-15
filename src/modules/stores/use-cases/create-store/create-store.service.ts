@@ -21,7 +21,7 @@ export class CreateStoreService {
   }: CreateStoreInput): Promise<CreateStoreDTO> {
     email = email.toLowerCase();
 
-    await this.verifyDataLinkedToAUser.verify(email);
+    await this.verifyDataLinkedToAUser.verifyEmail(email);
 
     const storeEmailAlreadyExists = await this.storesRepository.findByEmail(
       email,

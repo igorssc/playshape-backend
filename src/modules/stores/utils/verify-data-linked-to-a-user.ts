@@ -6,7 +6,7 @@ import { FindUserService } from '../../accounts/use-cases/find-user/find-user.se
 export class VerifyDataLinkedToAUser {
   constructor(private findUserService: FindUserService) {}
 
-  async verify(email: string) {
+  async verifyEmail(email: string) {
     try {
       const emailAlreadyExists = await this.findUserService.execute({
         email,
