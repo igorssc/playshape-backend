@@ -12,7 +12,6 @@ export interface IStoresRepository {
     limit: number,
   ): Promise<PaginateResult<StoreDocument>>;
   findBySlug(slug: string): Promise<Store>;
-  findByCpf(cpf: string): Promise<Store>;
   findByCnpj(cpf: string): Promise<Store>;
   listAllStores(
     page: number,

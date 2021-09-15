@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
-import { cnpj as validarCnpj, cpf as validarCpf } from 'cpf-cnpj-validator';
+import { cnpj as validarCnpj } from 'cpf-cnpj-validator';
 import { uploadFile } from '../../../../config/upload';
 import { deleteFile } from '../../../../storage/delete';
 import { UpdateStoreInput } from '../../inputs/update-store.input';
@@ -15,29 +15,6 @@ export class UpdateStoreService {
   ) {}
 
   async execute(storeId: string, store: UpdateStoreInput) {
-    if (store.cpf) {
-      const cpfIsValid = validarCpf.isValid(store.cpf);
-
-      if (!cpfIsValid) {
-        throw new HttpException(
-          'CPF informed with format invalid',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-
-      const storeAlreadyExists = await this.storesRepository.findByCpf(
-        store.cpf,
-      );
-
-      if (storeAlreadyExists && String(storeAlreadyExists._id) != storeId) {
-        throw new HttpException('CPF already exists', HttpStatus.CONFLICT);
-      }
-
-      await this.verifyDataLinkedToAUser.verifyCPF(store.cpf);
-
-      Object.assign(store, { cnpj: null });
-    }
-
     if (store.cnpj) {
       const cnpjIsValid = validarCnpj.isValid(store.cnpj);
 
@@ -88,7 +65,7 @@ export class UpdateStoreService {
         throw new HttpException('Email already exists', HttpStatus.CONFLICT);
       }
 
-      await this.verifyDataLinkedToAUser.verifyEmail(store.email);
+      await this.verifyDataLinkedToAUser.verify(store.email);
     }
 
     if (store.profile_picture) {

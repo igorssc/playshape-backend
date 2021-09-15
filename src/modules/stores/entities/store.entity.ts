@@ -30,17 +30,13 @@ export class Store {
   @Field({ nullable: true })
   cnpj: string;
 
-  @Prop({ unique: true, sparse: true })
-  @Field({ nullable: true })
-  cpf: string;
-
   @Prop()
   @Field({ nullable: true })
   phone: string;
 
   @Prop()
-  @Field(() => [Address], { nullable: true })
-  address: Address[];
+  @Field(() => Address, { nullable: true })
+  address: Address;
 
   @Prop()
   @Field({ nullable: true })

@@ -18,9 +18,6 @@ export class UpdateStoreInput {
   email: string;
 
   @Field({ nullable: true })
-  cpf: string;
-
-  @Field({ nullable: true })
   cnpj: string;
 
   @Field({ nullable: true })
@@ -29,8 +26,8 @@ export class UpdateStoreInput {
   @Field({ nullable: true })
   password: string;
 
-  @Field(() => [AddressInput], { nullable: true })
-  address: AddressInput[];
+  @Field(() => AddressInput, { nullable: true })
+  address: AddressInput;
 
   @Field(() => GraphQLUpload, { nullable: true })
   profile_picture: FileUpload;

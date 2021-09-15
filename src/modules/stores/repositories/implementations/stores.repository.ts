@@ -46,14 +46,6 @@ export class StoresRepository implements IStoresRepository {
     return store;
   }
 
-  async findByCpf(cpf: string): Promise<Store> {
-    const store = await this.storeModel.findOne({
-      cpf,
-    });
-
-    return store;
-  }
-
   async findByCnpj(cnpj: string): Promise<Store> {
     const store = await this.storeModel.findOne({
       cnpj,
